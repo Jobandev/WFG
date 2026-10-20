@@ -11,25 +11,26 @@
 @media(max-width:700px){.nav{flex-wrap:wrap;justify-content:center;gap:12px}.nav .brand{margin-right:auto}.nav nav{position:static;display:flex;flex-direction:row;gap:8px;background:none;border:0;padding:0;backdrop-filter:none;border-radius:0}.nav nav .division-nav-button{padding:9px 12px;font-size:10px;gap:7px}.nav .wordmark{font-size:12px}.nav .monogram{font-size:29px}.culture-grid{gap:16px;grid-template-columns:1fr}.culture-panel img{height:190px}.culture-section{padding-bottom:30px}.division-hero{padding:165px 0 65px}.division-hero h1{font-size:clamp(38px,8vw,58px)}.sibling-navigation{flex-wrap:wrap}}
 @media(max-width:430px){.nav .brand{margin:auto}.nav nav{width:100%;justify-content:center}.nav nav .division-nav-button{flex:1}.hero,.division-hero{padding-top:195px}}
 
-/* Black, red and gold visual theme */
-:root{--navy:#10090b;--gold:#d9a441;--gold-bright:#f5d27b;--text:#fff9f2;--muted:#c6b9b2;--line:#d9a4412b}
-body{background-color:#10090b;background-image:radial-gradient(circle at 12% 18%,#7d172019 0 1px,transparent 1px),radial-gradient(circle at 78% 72%,#d9a44112 0 1px,transparent 1px),linear-gradient(125deg,#10090b,#050405 48%,#1d090c);background-size:24px 24px,31px 31px,100% 100%;background-attachment:fixed}
-.glass{background:linear-gradient(130deg,#ffb27b12,#8b182b14 52%,#d9a4410b),#160c0ed9;border-color:#d9a44133;box-shadow:inset 0 1px 0 #fff2,inset 0 -1px 0 #d9a4410b,0 25px 70px #0008}
-.nav.scrolled{background:#10090bf2}
-.hero{background:radial-gradient(ellipse at 50% 70%,#8b182b55,transparent 65%)}
-.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#10090bf5 0%,#10090bcc 42%,#10090bdf 100%),url('assets/banner.jpg') center/cover;opacity:.42;z-index:-2}
-.hero-halo{background:radial-gradient(ellipse,#b22a3b45,transparent 60%)}
-.orb{background:linear-gradient(135deg,#fff2,#8b182b24 40%,#d9a44122),#2a101655}
-.primary{background:linear-gradient(110deg,#f5d27b,#b8791e);color:#170c09;box-shadow:inset 0 1px 0 #fff8,0 8px 25px #d9a4412b}
+/* Deep blue and gold theme to match the supplied artwork */
+:root{--navy:#061322;--gold:#d9a441;--gold-bright:#f5d27b;--text:#f8fafc;--muted:#afbdcd;--line:#d9a4412b}
+body{background-color:#061322;background-image:radial-gradient(circle at 12% 18%,#1c5b8219 0 1px,transparent 1px),radial-gradient(circle at 78% 72%,#d9a44112 0 1px,transparent 1px),linear-gradient(125deg,#061322,#02070d 48%,#0d2237);background-size:24px 24px,31px 31px,100% 100%;background-attachment:fixed}
+.glass{background:linear-gradient(130deg,#9ed8ff0e,#0a396014 52%,#d9a4410b),#092038db;border-color:#d9a44133;box-shadow:inset 0 1px 0 #fff2,inset 0 -1px 0 #d9a4410b,0 25px 70px #0008}
+.nav.scrolled{background:#061322f2}
+.hero{background:radial-gradient(ellipse at 50% 70%,#164b7155,transparent 65%)}
+.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#061322f5 0%,#061322cc 42%,#061322df 100%),url('assets/banner.jpg') center/cover;opacity:.42;z-index:-2}
+.hero-halo{background:radial-gradient(ellipse,#3f8db545,transparent 60%)}
+.orb{background:linear-gradient(135deg,#fff2,#1c5b8224 40%,#d9a44122),#102d4655}
+.primary{background:linear-gradient(110deg,#f5d27b,#b8791e);color:#071322;box-shadow:inset 0 1px 0 #fff8,0 8px 25px #d9a4412b}
 .primary:hover{background:var(--gold-bright);box-shadow:0 12px 30px #d9a44155}
 .division-card:hover{border-color:#d9a44188;box-shadow:0 25px 80px #0008,inset 0 1px 0 #fff3}
-.culture-section{background:linear-gradient(180deg,transparent,#5d101b12,transparent)}
-.connection-banner{position:relative;isolation:isolate;overflow:hidden}
-.connection-banner:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#16090be8 0%,#16090bd9 48%,#16090b8c 100%);z-index:-1}
-.connection-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3;z-index:-2}
-.division-hero{background-color:#10090b}
-.digital-page-hero{background-image:linear-gradient(90deg,#10090bf2,#10090bb8 55%,#10090be8),url('assets/digital.png');background-position:center;background-size:cover}
-.relational-page-hero{background-image:linear-gradient(90deg,#10090bf2,#10090bb8 55%,#10090be8),url('assets/relational.png');background-position:center;background-size:cover}
+.culture-section{background:linear-gradient(180deg,transparent,#12476b12,transparent)}
+.connection-banner{position:relative;isolation:isolate;overflow:hidden;min-height:420px}
+.connection-banner:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#061322f2 0%,#061322cf 42%,#06132272 100%);z-index:-1}
+.connection-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.52;z-index:-2}
+.connection-visual{opacity:.2}
+.division-hero{background-color:#061322}
+.digital-page-hero{background-image:linear-gradient(90deg,#061322f2,#061322b8 55%,#061322e8),url('assets/digital.png');background-position:center;background-size:cover}
+.relational-page-hero{background-image:linear-gradient(90deg,#061322f2,#061322b8 55%,#061322e8),url('assets/relational.png');background-position:center;background-size:cover}
 .division-hero:after{background:linear-gradient(90deg,#d9a44100,#d9a44166,#d9a44100)}
 .service,.programme-panel,.contact-panel{border-color:#d9a4412e}
 
