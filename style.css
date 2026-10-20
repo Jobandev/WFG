@@ -17,7 +17,7 @@ body{background-color:#061322;background-image:radial-gradient(circle at 12% 18%
 .glass{background:linear-gradient(130deg,#9ed8ff0e,#0a396014 52%,#d9a4410b),#092038db;border-color:#d9a44133;box-shadow:inset 0 1px 0 #fff2,inset 0 -1px 0 #d9a4410b,0 25px 70px #0008}
 .nav.scrolled{background:#061322f2}
 .hero{background:radial-gradient(ellipse at 50% 70%,#164b7155,transparent 65%)}
-.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#061322f5 0%,#061322cc 42%,#061322df 100%),url('assets/banner.jpg') center/cover;opacity:.42;z-index:-2}
+.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#061322f5 0%,#061322cc 42%,#061322df 100%);opacity:.42;z-index:-2}
 .hero-halo{background:radial-gradient(ellipse,#3f8db545,transparent 60%)}
 .orb{background:linear-gradient(135deg,#fff2,#1c5b8224 40%,#d9a44122),#102d4655}
 .primary{background:linear-gradient(110deg,#f5d27b,#b8791e);color:#071322;box-shadow:inset 0 1px 0 #fff8,0 8px 25px #d9a4412b}
@@ -26,11 +26,9 @@ body{background-color:#061322;background-image:radial-gradient(circle at 12% 18%
 .culture-section{background:linear-gradient(180deg,transparent,#12476b12,transparent)}
 .connection-banner{position:relative;isolation:isolate;overflow:hidden;min-height:420px}
 .connection-banner:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#061322f2 0%,#061322cf 42%,#06132272 100%);z-index:-1}
-.connection-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.52;z-index:-2}
 .connection-visual{opacity:.2}
 .division-hero{background-color:#061322}
-.digital-page-hero{background-image:linear-gradient(90deg,#061322f2,#061322b8 55%,#061322e8),url('assets/digital.png');background-position:center;background-size:cover}
-.relational-page-hero{background-image:linear-gradient(90deg,#061322f2,#061322b8 55%,#061322e8),url('assets/relational.png');background-position:center;background-size:cover}
+.digital-page-hero,.relational-page-hero{background-image:linear-gradient(135deg,#061322,#0d2942 55%,#061322)}
 .division-hero:after{background:linear-gradient(90deg,#d9a44100,#d9a44166,#d9a44100)}
 .service,.programme-panel,.contact-panel{border-color:#d9a4412e}
 
