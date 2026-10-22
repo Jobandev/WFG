@@ -14,7 +14,7 @@
  const gallery=document.querySelector('.photo-carousel');
  if(gallery){
   const track=gallery.querySelector('.gallery-track'),pause=gallery.querySelector('[data-gallery="pause"]');
-  let paused=reduced.matches,hovered=false,timer;
+  let paused=reduced.matches,timer;
   function step(direction){
    const end=track.scrollWidth-track.clientWidth;
    const photo=track.querySelector('img');
@@ -24,16 +24,12 @@
   }
   function sync(){
    clearInterval(timer);pause.textContent=paused?'Play slideshow':'Pause slideshow';pause.setAttribute('aria-pressed',String(paused));
-   if(!paused&&!hovered&&!document.hidden&&!gallery.contains(document.activeElement))timer=setInterval(()=>step(1),5500);
+   if(!paused&&!document.hidden)timer=setInterval(()=>step(1),5500);
   }
   gallery.querySelector('[data-gallery="prev"]').addEventListener('click',()=>step(-1));
   gallery.querySelector('[data-gallery="next"]').addEventListener('click',()=>step(1));
-  pause.addEventListener('click',()=>{paused=!paused;sync();});
-  gallery.addEventListener('mouseenter',()=>{hovered=true;sync();});
-  gallery.addEventListener('mouseleave',()=>{hovered=false;sync();});
-  gallery.addEventListener('focusin',sync);gallery.addEventListener('focusout',()=>setTimeout(sync,0));
+  pause.addEventListener('click',()=>{paused=!paused;if(!paused)step(1);sync();});
   track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1);}});
-  track.addEventListener('touchstart',()=>{paused=true;sync();},{passive:true});
   document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',()=>{paused=reduced.matches;sync();});sync();
  }
 })();
