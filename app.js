@@ -11,4 +11,29 @@
  function update(){frame=0;nav.classList.toggle('scrolled',scrollY>35);const max=document.documentElement.scrollHeight-innerHeight;document.documentElement.style.setProperty('--progress',max>0?Math.max(0,Math.min(1,scrollY/max)):0);if(sculpture&&sculpture.getBoundingClientRect().bottom>0)sculpture.style.setProperty('--sculpture-y',reduced.matches||innerWidth<701?'0px':Math.min(scrollY*.06,40)+'px');}
  function schedule(){if(!frame)frame=requestAnimationFrame(update);}
  window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule);window.addEventListener('load',schedule);reduced.addEventListener('change',schedule);update();
+ const gallery=document.querySelector('.photo-carousel');
+ if(gallery){
+  const track=gallery.querySelector('.gallery-track'),pause=gallery.querySelector('[data-gallery="pause"]');
+  let paused=reduced.matches,hovered=false,timer;
+  function step(direction){
+   const end=track.scrollWidth-track.clientWidth;
+   const photo=track.querySelector('img');
+   const stride=photo.getBoundingClientRect().width+parseFloat(getComputedStyle(track).gap);
+   const left=direction>0&&track.scrollLeft>=end-2?0:direction<0&&track.scrollLeft<=2?end:track.scrollLeft+direction*stride;
+   track.scrollTo({left,behavior:reduced.matches?'instant':'smooth'});
+  }
+  function sync(){
+   clearInterval(timer);pause.textContent=paused?'Play slideshow':'Pause slideshow';pause.setAttribute('aria-pressed',String(paused));
+   if(!paused&&!hovered&&!document.hidden&&!gallery.contains(document.activeElement))timer=setInterval(()=>step(1),5500);
+  }
+  gallery.querySelector('[data-gallery="prev"]').addEventListener('click',()=>step(-1));
+  gallery.querySelector('[data-gallery="next"]').addEventListener('click',()=>step(1));
+  pause.addEventListener('click',()=>{paused=!paused;sync();});
+  gallery.addEventListener('mouseenter',()=>{hovered=true;sync();});
+  gallery.addEventListener('mouseleave',()=>{hovered=false;sync();});
+  gallery.addEventListener('focusin',sync);gallery.addEventListener('focusout',()=>setTimeout(sync,0));
+  track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1);}});
+  track.addEventListener('touchstart',()=>{paused=true;sync();},{passive:true});
+  document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',()=>{paused=reduced.matches;sync();});sync();
+ }
 })();
