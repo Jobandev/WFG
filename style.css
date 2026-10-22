@@ -65,8 +65,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 .nav .social-links a{color:var(--gold);padding:8px 5px}.nav .social-links a:after{display:none}
 /* Second draft: original community gallery and confirmed offerings. */
 .photo-carousel{margin-top:50px;min-width:0;padding:24px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(145deg,#dfc28d09,transparent 65%),#10100f;box-shadow:0 20px 60px #0003}
-.gallery-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#dfc28d66 #171714;padding:0 0 20px;border-radius:16px;overscroll-behavior-x:contain}
-.gallery-track img{flex:0 0 clamp(250px,28vw,330px);width:clamp(250px,28vw,330px);height:330px;object-fit:cover;object-position:center 35%;border-radius:16px;border:1px solid var(--line);scroll-snap-align:start;scroll-snap-stop:always;background:#191815}
+.gallery-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:none;scroll-behavior:auto;scrollbar-width:thin;scrollbar-color:#dfc28d66 #171714;padding:0 0 20px;border-radius:16px;overscroll-behavior-x:contain}
+.gallery-track img{flex:0 0 clamp(250px,28vw,330px);width:clamp(250px,28vw,330px);height:330px;object-fit:cover;object-position:center 35%;border-radius:16px;border:1px solid var(--line);background:#191815}
 .gallery-controls{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:22px}
 .gallery-controls button{border:1px solid var(--line);border-radius:30px;background:#151412;color:var(--gold);font:inherit;font-size:13px;padding:11px 20px;cursor:pointer;min-height:48px;transition:background .2s,border-color .2s,transform .2s}
 .gallery-controls button[data-gallery="prev"],.gallery-controls button[data-gallery="next"]{width:48px;padding:0;font-size:23px;background:var(--gold);color:#090909;border-color:var(--gold)}

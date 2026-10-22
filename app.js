@@ -14,22 +14,32 @@
  const gallery=document.querySelector('.photo-carousel');
  if(gallery){
   const track=gallery.querySelector('.gallery-track'),pause=gallery.querySelector('[data-gallery="pause"]');
-  let paused=false,timer;
-  function step(direction){
-   const end=track.scrollWidth-track.clientWidth;
-   const photo=track.querySelector('img');
-   const stride=photo.getBoundingClientRect().width+parseFloat(getComputedStyle(track).gap);
-   const left=direction>0&&track.scrollLeft>=end-2?0:direction<0&&track.scrollLeft<=2?end:track.scrollLeft+direction*stride;
-   track.scrollTo({left,behavior:reduced.matches?'instant':'smooth'});
+  const originals=[...track.querySelectorAll('img')];
+  originals.forEach(photo=>{const copy=photo.cloneNode(true);copy.alt='';copy.setAttribute('aria-hidden','true');track.appendChild(copy);});
+  let paused=false,animation=0,lastTime=0,position=track.scrollLeft,dragging=false;
+  function loopWidth(){return originals.length*(originals[0].getBoundingClientRect().width+parseFloat(getComputedStyle(track).gap));}
+  function move(left){const width=loopWidth();position=((left%width)+width)%width;track.scrollLeft=position;}
+  function tick(time){
+   if(lastTime){
+    if(Math.abs(track.scrollLeft-position)>2)position=track.scrollLeft;
+    move(position+Math.min(time-lastTime,50)*.032);
+   }
+   lastTime=time;animation=requestAnimationFrame(tick);
   }
   function sync(){
-   clearInterval(timer);pause.textContent=paused?'Play slideshow':'Pause slideshow';pause.setAttribute('aria-pressed',String(paused));
-   if(!paused&&!document.hidden)timer=setInterval(()=>step(1),5500);
+   cancelAnimationFrame(animation);lastTime=0;
+   pause.textContent=paused?'Play slideshow':'Pause slideshow';pause.setAttribute('aria-pressed',String(paused));
+   if(!paused&&!dragging&&!document.hidden)animation=requestAnimationFrame(tick);
   }
+  function step(direction){move(track.scrollLeft+direction*(originals[0].getBoundingClientRect().width+parseFloat(getComputedStyle(track).gap)));}
   gallery.querySelector('[data-gallery="prev"]').addEventListener('click',()=>step(-1));
   gallery.querySelector('[data-gallery="next"]').addEventListener('click',()=>step(1));
-  pause.addEventListener('click',()=>{paused=!paused;if(!paused)step(1);sync();});
+  pause.addEventListener('click',()=>{paused=!paused;sync();});
   track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1);}});
-  document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',sync);sync();
+  track.addEventListener('pointerdown',()=>{dragging=true;sync();});
+  function release(){if(dragging){dragging=false;position=track.scrollLeft;sync();}}
+  window.addEventListener('pointerup',release);window.addEventListener('pointercancel',release);
+  window.addEventListener('resize',()=>move(track.scrollLeft));
+  document.addEventListener('visibilitychange',sync);sync();
  }
 })();
