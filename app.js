@@ -8,6 +8,22 @@
   document.querySelectorAll('.reveal').forEach(el=>{if(el.parentElement.matches('.service-grid,.division-grid,.culture-grid'))el.style.setProperty('--delay',([...el.parentElement.children].indexOf(el)*85)+'ms');observer.observe(el);});
  }
  const sculpture=document.querySelector('.sculpture');let frame=0;
+ if(sculpture){
+  let glowFrame=0,pointerX=0,pointerY=0;
+  sculpture.addEventListener('pointermove',event=>{
+   if(event.pointerType==='touch')return;
+   pointerX=event.clientX;pointerY=event.clientY;
+   if(!glowFrame)glowFrame=requestAnimationFrame(()=>{
+    glowFrame=0;const bounds=sculpture.getBoundingClientRect();
+    sculpture.style.setProperty('--glow-x',`${pointerX-bounds.left}px`);
+    sculpture.style.setProperty('--glow-y',`${pointerY-bounds.top}px`);
+    sculpture.classList.add('cursor-lit');
+   });
+  });
+  function clearGlow(){cancelAnimationFrame(glowFrame);glowFrame=0;sculpture.classList.remove('cursor-lit');}
+  sculpture.addEventListener('pointerleave',clearGlow);sculpture.addEventListener('pointercancel',clearGlow);
+  window.addEventListener('blur',clearGlow);
+ }
  function update(){frame=0;nav.classList.toggle('scrolled',scrollY>35);const max=document.documentElement.scrollHeight-innerHeight;document.documentElement.style.setProperty('--progress',max>0?Math.max(0,Math.min(1,scrollY/max)):0);if(sculpture&&sculpture.getBoundingClientRect().bottom>0)sculpture.style.setProperty('--sculpture-y',reduced.matches||innerWidth<701?'0px':Math.min(scrollY*.06,40)+'px');}
  function schedule(){if(!frame)frame=requestAnimationFrame(update);}
  window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule);window.addEventListener('load',schedule);reduced.addEventListener('change',schedule);update();

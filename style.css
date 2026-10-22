@@ -89,3 +89,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 @keyframes celestial-orbit-one{from{transform:translateX(-50%) rotate(-20deg)}to{transform:translateX(-50%) rotate(340deg)}}
 @keyframes celestial-orbit-two{from{transform:translateX(-50%) rotate(25deg)}to{transform:translateX(-50%) rotate(-335deg)}}
 @media(prefers-reduced-motion:reduce){.sculpture .orbit{animation-duration:64s!important}.sculpture .orbit-two{animation-duration:88s!important}}
+/* Pointer-following gold light and a restrained logo magnification. */
+.sculpture:before{content:'';position:absolute;inset:-25px;pointer-events:none;border-radius:50%;background:radial-gradient(circle 120px at calc(var(--glow-x,50%) + 25px) calc(var(--glow-y,50%) + 25px),#dfc28d26, #dfc28d0a 48%,transparent 75%);opacity:0;transition:opacity .35s ease}
+.sculpture.cursor-lit:before{opacity:1}
+.sculpture .orb{scale:1;transition:scale .4s ease,box-shadow .4s ease}
+.sculpture.cursor-lit .orb{scale:1.06;box-shadow:inset 2px 2px 3px #fff4,inset -2px -2px 8px #dfc28d33,0 0 45px #dfc28d20,0 30px 100px #0005}
+@media(prefers-reduced-motion:reduce){.sculpture.cursor-lit .orb{scale:1}}
