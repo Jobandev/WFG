@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const nav=document.querySelector('.nav');
  document.getElementById('year').textContent=new Date().getFullYear();
