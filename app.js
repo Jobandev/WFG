@@ -14,7 +14,7 @@
  const gallery=document.querySelector('.photo-carousel');
  if(gallery){
   const track=gallery.querySelector('.gallery-track'),pause=gallery.querySelector('[data-gallery="pause"]');
-  let paused=reduced.matches,timer;
+  let paused=false,timer;
   function step(direction){
    const end=track.scrollWidth-track.clientWidth;
    const photo=track.querySelector('img');
@@ -30,6 +30,6 @@
   gallery.querySelector('[data-gallery="next"]').addEventListener('click',()=>step(1));
   pause.addEventListener('click',()=>{paused=!paused;if(!paused)step(1);sync();});
   track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1);}});
-  document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',()=>{paused=reduced.matches;sync();});sync();
+  document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',sync);sync();
  }
 })();
