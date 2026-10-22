@@ -79,3 +79,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 .service-offering a{display:block;color:var(--gold);font-size:14px;line-height:1.6;text-decoration:underline;text-underline-offset:4px;padding:8px 0}
 .service-offering a:hover{color:var(--text)}
 @media(max-width:700px){.gallery-track{gap:14px}.gallery-track img{flex-basis:82%;width:82%;height:280px}.photo-carousel{margin-top:35px;padding:14px;border-radius:22px}.gallery-controls{gap:10px;margin-top:16px}.gallery-controls button[data-gallery="pause"]{min-width:140px;padding:10px 14px}}
+/* Slow celestial orbits around the WH mark. */
+.sculpture .orbit{border-color:#dfc28d60;box-shadow:0 0 24px #dfc28d0c;animation:celestial-orbit-one 32s linear infinite!important;pointer-events:none}
+.sculpture .orbit-two{border-color:#dfc28d38;animation:celestial-orbit-two 44s linear infinite!important}
+.sculpture .orbit:before,.sculpture .orbit:after{content:'';position:absolute;border-radius:50%;background:#eed5a2;pointer-events:none}
+.sculpture .orbit:before{width:6px;height:6px;left:50%;top:-3px;box-shadow:0 0 8px #dfc28dbb,0 0 20px #dfc28d66}
+.sculpture .orbit:after{width:3px;height:3px;left:50%;bottom:-2px;background:#dfc28d99;box-shadow:0 0 9px #dfc28d77}
+.sculpture .orbit-two:before{width:4px;height:4px;top:-2px}
+@keyframes celestial-orbit-one{from{transform:translateX(-50%) rotate(-20deg)}to{transform:translateX(-50%) rotate(340deg)}}
+@keyframes celestial-orbit-two{from{transform:translateX(-50%) rotate(25deg)}to{transform:translateX(-50%) rotate(-335deg)}}
+@media(prefers-reduced-motion:reduce){.sculpture .orbit{animation-duration:64s!important}.sculpture .orbit-two{animation-duration:88s!important}}
