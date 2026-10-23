@@ -30,8 +30,8 @@
  const gallery=document.querySelector('.photo-carousel');
  if(gallery){
   const track=gallery.querySelector('.gallery-track'),pause=gallery.querySelector('[data-gallery="pause"]');
-  const originals=[...track.querySelectorAll('img')];
-  originals.forEach(photo=>{const copy=photo.cloneNode(true);copy.alt='';copy.setAttribute('aria-hidden','true');track.appendChild(copy);});
+  const originals=[...track.querySelectorAll('.gallery-item')];
+  originals.forEach(photo=>{const copy=photo.cloneNode(true);copy.querySelector('img').alt='';copy.setAttribute('aria-hidden','true');track.appendChild(copy);});
   let paused=false,animation=0,lastTime=0,position=track.scrollLeft,dragging=false;
   function loopWidth(){return originals.length*(originals[0].getBoundingClientRect().width+parseFloat(getComputedStyle(track).gap));}
   function move(left){const width=loopWidth();position=((left%width)+width)%width;track.scrollLeft=position;}

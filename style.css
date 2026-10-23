@@ -66,7 +66,9 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 /* Second draft: original community gallery and confirmed offerings. */
 .photo-carousel{margin-top:50px;min-width:0;padding:24px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(145deg,#dfc28d09,transparent 65%),#10100f;box-shadow:0 20px 60px #0003}
 .gallery-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:none;scroll-behavior:auto;scrollbar-width:thin;scrollbar-color:#dfc28d66 #171714;padding:0 0 20px;border-radius:16px;overscroll-behavior-x:contain}
-.gallery-track img{flex:0 0 clamp(250px,28vw,330px);width:clamp(250px,28vw,330px);height:330px;object-fit:cover;object-position:center 35%;border-radius:16px;border:1px solid var(--line);background:#191815}
+.gallery-item{flex:0 0 clamp(250px,28vw,330px);width:clamp(250px,28vw,330px);margin:0;overflow:hidden;border-radius:16px;border:1px solid var(--line);background:#191815}
+.gallery-track .gallery-item img{display:block;width:100%;height:330px;object-fit:contain;object-position:center;background:#10100f}
+.gallery-item figcaption{padding:16px 18px;color:var(--gold);font-size:16px;line-height:1.5;overflow-wrap:break-word}
 .gallery-controls{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:22px}
 .gallery-controls button{border:1px solid var(--line);border-radius:30px;background:#151412;color:var(--gold);font:inherit;font-size:13px;padding:11px 20px;cursor:pointer;min-height:48px;transition:background .2s,border-color .2s,transform .2s}
 .gallery-controls button[data-gallery="prev"],.gallery-controls button[data-gallery="next"]{width:48px;padding:0;font-size:23px;background:var(--gold);color:#090909;border-color:var(--gold)}
@@ -78,7 +80,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 .service-offering h4{font-size:17px;line-height:1.5;font-weight:500;margin:0 0 18px;color:var(--text)}
 .service-offering a{display:block;color:var(--gold);font-size:14px;line-height:1.6;text-decoration:underline;text-underline-offset:4px;padding:8px 0}
 .service-offering a:hover{color:var(--text)}
-@media(max-width:700px){.gallery-track{gap:14px}.gallery-track img{flex-basis:82%;width:82%;height:280px}.photo-carousel{margin-top:35px;padding:14px;border-radius:22px}.gallery-controls{gap:10px;margin-top:16px}.gallery-controls button[data-gallery="pause"]{min-width:140px;padding:10px 14px}}
+@media(max-width:700px){.gallery-track{gap:14px}.gallery-item{flex-basis:82%;width:82%}.gallery-track .gallery-item img{height:280px}.photo-carousel{margin-top:35px;padding:14px;border-radius:22px}.gallery-controls{gap:10px;margin-top:16px}.gallery-controls button[data-gallery="pause"]{min-width:140px;padding:10px 14px}}
 /* Slow celestial orbits around the WH mark. */
 .sculpture .orbit{border-color:#dfc28d60;box-shadow:0 0 24px #dfc28d0c;animation:celestial-orbit-one 32s linear infinite!important;pointer-events:none}
 .sculpture .orbit-two{border-color:#dfc28d38;animation:celestial-orbit-two 44s linear infinite!important}
@@ -98,3 +100,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 
 /* Preserve the complete framing of the newly supplied group photos. */
 .gallery-track img.gallery-photo-full{object-fit:contain;object-position:center;background:#10100f}
+
+#photo-slideshow{scroll-margin-top:120px}
+.hero-bottom{flex-wrap:wrap;gap:18px}
+.slideshow-link{color:var(--gold);font-size:14px;text-decoration:underline;text-underline-offset:5px}
