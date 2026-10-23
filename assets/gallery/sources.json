@@ -44,5 +44,31 @@
     "assets/gallery/gallery-41.jpg",
     "assets/gallery/gallery-42.jpg",
     "assets/gallery/gallery-43.jpg"
+  ],
+  "user_supplied": [
+    {
+      "file": "assets/gallery/graduation-celebration.jpg",
+      "original_filename": "IMG-20260401-WA0001.jpg"
+    },
+    {
+      "file": "assets/gallery/roger-smith-john-mika.jpg",
+      "original_filename": "Roger Smith & John Mika.jpg"
+    },
+    {
+      "file": "assets/gallery/wally-haumaha-helen-clarke.jpg",
+      "original_filename": "Wally Haumaha & Helen Clarke.jpg"
+    },
+    {
+      "file": "assets/gallery/buck-shelford-bernie-reihana.jpg",
+      "original_filename": "Sir Wanye (Buck )Shelford & Bernie Reihana.jpg"
+    },
+    {
+      "file": "assets/gallery/zoe-hawke-adrian-te-patu.jpg",
+      "original_filename": "Zoe Hawke & Adrian Te Patu.jpg"
+    },
+    {
+      "file": "assets/gallery/wiremu-manaia-chris-bullen.png",
+      "original_filename": "Wiremu Manaia & Chris Bullen.png"
+    }
   ]
 }

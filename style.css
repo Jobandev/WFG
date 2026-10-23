@@ -95,3 +95,6 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 .sculpture .orb{scale:1;transition:scale .4s ease,box-shadow .4s ease}
 .sculpture.cursor-lit .orb{scale:1.06;box-shadow:inset 2px 2px 3px #fff4,inset -2px -2px 8px #dfc28d33,0 0 45px #dfc28d20,0 30px 100px #0005}
 @media(prefers-reduced-motion:reduce){.sculpture.cursor-lit .orb{scale:1}}
+
+/* Preserve the complete framing of the newly supplied group photos. */
+.gallery-track img.gallery-photo-full{object-fit:contain;object-position:center;background:#10100f}
