@@ -25,6 +25,15 @@ Validation: HTML structure, local assets, internal links and JavaScript syntax c
 - Placed all six confirmed offerings in their specified service categories. Free-resource links open an email request; no downloadable guides or assessment backend were supplied.
 - Checked HTML nesting, local image references, required copy, offering counts and JavaScript syntax. Browser visual verification was unavailable. Changes are local and have not been deployed.
 
+## Third draft revisions — 2 November 2026
+
+- Consolidated the design system around the supplied gold, black, surface, white, muted, line and hero-gradient tokens.
+- Added designed SVG WH and Wolfgramm Holdings marks, consistent SVG controls/icons, official social links and visible keyboard focus states.
+- Added WhatsApp Conversational Connector flows, resource request buttons, and workshops/contact links to both outcome pages.
+- Added clean `/relational/` and `/digital/` routes while retaining root redirects for existing links.
+- Normalised gallery crops to 4:3 and corrected supplied captions and copy.
+- Removed unreferenced legacy gallery images from `assets/gallery/`.
+
 
 ## Supplied-photo corrections ? 24 October 2026
 
@@ -38,3 +47,23 @@ Validation: HTML structure, local assets, internal links and JavaScript syntax c
 Slideshow follow-up: added a homepage jump link and removed hover/focus pauses so movement continues until explicitly paused (or while dragging). Reduced-motion users can start it with Play. The gallery no longer depends on a reveal animation to become visible. JavaScript syntax checked; browser verification unavailable.
 
 Autoplay preference: slideshow now starts playing on every page load, including when the device requests reduced motion, as explicitly requested. Manual Pause remains available.
+
+
+## Feedback completion — 3 November 2026
+
+- Connected all conversation and resource buttons to the supplied WhatsApp number +64 22 606 4444, including pre-filled resource-specific messages and working HTML fallback links.
+- Replaced remaining text arrows with consistent SVGs, named all six resource buttons, restored shared social links in headers and footers, and drew the AI lettering as paths.
+- Used solid brand gold buttons with black text, consolidated icon sizing, added gallery keyboard focus styling, and retained consistent 4:3 crops.
+- Enabled reduced-motion-aware scroll response for the orbit artwork and a short chat entrance animation. Removed scroll snapping that interfered with continuous carousel movement.
+- Removed obsolete gallery inventory; retained supplied photographs and existing working-tree edits.
+- Master logo artwork, approved client logos and final caption context are still pending. Current SVG logo remains provisional.
+- JavaScript syntax and local asset/link checks passed for all three pages. Changes are local; no deployment performed.
+- Verified Ceillhe Sperath against https://www.timeunlimited.co.nz/our-team and corrected Brett O'Riley against https://www.abacnz.co.nz/.
+- Browser checks: homepage and both Outcomes routes loaded; navigation menu expanded correctly; resource labels and WhatsApp targets were verified in the rendered pages.
+- Orbit fix: the browser reports reduced motion enabled, which disabled both trails. Added a targeted exception for the requested orbit animation and bumped shared asset versions. Browser verification confirmed both dash offsets advance with reduced motion enabled.
+
+## Complete supplied gallery — 3 November 2026
+- Matched all 37 photographs in pics1.zip, Pics 2.eml and Pics 3.eml to existing web copies; restored them alongside the graduation photograph (38 total).
+- Added uniform 4:3 frames with full-photo containment and softly blurred backgrounds, preserving people at the edges of portraits and group pictures. Captions now sit below photographs with consistent aligned card heights.
+- Applied restrained per-photo CSS brightness and contrast based on image luminance, plus mild colour adjustment. Source photo pixels are unchanged; presentation settings are recorded in supplied/sources.json.
+- Verified all images decode, 38 cards render with matching dimensions, navigation works, and the preview has no horizontal page overflow. JavaScript syntax passed.

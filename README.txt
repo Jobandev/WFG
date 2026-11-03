@@ -1,6 +1,9 @@
-﻿Wolfgramm Holdings website
-Open index.html for the parent homepage. Its two navigation buttons open relational.html and digital.html.
-Each division has its own full service and programme content. All pages share style.css and app.js.
-The homepage uses two subtle existing cultural banner images from assets/.
-Contact links open an email application; no enquiry backend is configured.
+Wolfgramm Holdings website
+
+Open index.html for the parent homepage. The outcomes pages use clean folder routes:
+- relational/index.html
+- digital/index.html
+
+All pages share style.css and app.js. The theme tokens, typography, spacing and interaction states are defined in style.css.
+Conversational Connector and free-resource buttons open WhatsApp with a pre-filled message. Outcomes pages also link to the live workshops calendar and contact page.
 Fonts load from Google Fonts with local fallbacks. Animations respect reduced-motion preferences.
