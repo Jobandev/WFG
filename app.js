@@ -14,7 +14,7 @@
     });
   }
 
-  document.querySelectorAll('[data-connector]').forEach((link) => {
+  document.querySelectorAll('[data-wh-sms]').forEach((link) => {
     if (config.whatsappUrl) {
       const separator = config.whatsappUrl.includes('?') ? '&' : '?';
       const message = encodeURIComponent(link.dataset.message || 'Kia ora, I would like to start a conversation.');

@@ -42,9 +42,9 @@ Brand marks are SVG assets in `assets/`. Interface, service and social icons are
 
 Motion is limited to 180–700ms transitions, subtle SVG orbit trails, scroll reveal and slideshow movement. The orbit paths remain fixed while their short highlighted strokes travel with 12-second and 16-second linear cycles. Essential content is visible without animation. `prefers-reduced-motion: reduce` disables nonessential animation and smooth scrolling, except the explicitly requested slow orbit trails.
 
-## Connector configuration
+## WH SMS configuration
 
-`site-config.js` is the single place to add the official WhatsApp URL. The supplied number 0226064444 is configured as https://wa.me/64226064444. If the setting is cleared, connector links fall back to the existing contact page. Resource-specific messages are stored on each connector element and are used automatically once WhatsApp is configured.
+`site-config.js` is the single place to add the official WhatsApp URL. The supplied number 0226064444 is configured as https://wa.me/64226064444. If the setting is cleared, WH SMS links fall back to the existing contact page. Resource-specific messages are stored on each WH SMS element and are used automatically once WhatsApp is configured.
 
 ## Gallery presentation
 

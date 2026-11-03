@@ -11,7 +11,7 @@ Applied the supplied document to all three pages, with the latest image-placemen
 - Exactly two reference photographs displayed, only in the WH Relational and WH Digital cards.
 - Rolling gallery removed at the user's request.
 
-The dedicated Conversational Connector URL is still outstanding. Header buttons currently lead to the existing contact section; email contact links are preserved.
+The dedicated WH Short Message Service URL is still outstanding. Header buttons currently lead to the existing contact section; email contact links are preserved.
 
 Validation: HTML structure, local assets, internal links and JavaScript syntax checked. Desktop presentation reviewed; all three pages checked at 390px with no horizontal overflow or broken images.
 
@@ -29,7 +29,7 @@ Validation: HTML structure, local assets, internal links and JavaScript syntax c
 
 - Consolidated the design system around the supplied gold, black, surface, white, muted, line and hero-gradient tokens.
 - Added designed SVG WH and Wolfgramm Holdings marks, consistent SVG controls/icons, official social links and visible keyboard focus states.
-- Added WhatsApp Conversational Connector flows, resource request buttons, and workshops/contact links to both outcome pages.
+- Added WhatsApp WH Short Message Service flows, resource request buttons, and workshops/contact links to both outcome pages.
 - Added clean `/relational/` and `/digital/` routes while retaining root redirects for existing links.
 - Normalised gallery crops to 4:3 and corrected supplied captions and copy.
 - Removed unreferenced legacy gallery images from `assets/gallery/`.
@@ -67,3 +67,8 @@ Autoplay preference: slideshow now starts playing on every page load, including 
 - Added uniform 4:3 frames with full-photo containment and softly blurred backgrounds, preserving people at the edges of portraits and group pictures. Captions now sit below photographs with consistent aligned card heights.
 - Applied restrained per-photo CSS brightness and contrast based on image luminance, plus mild colour adjustment. Source photo pixels are unchanged; presentation settings are recorded in supplied/sources.json.
 - Verified all images decode, 38 cards render with matching dimensions, navigation works, and the preview has no horizontal page overflow. JavaScript syntax passed.
+
+## WH SMS terminology — 3 November 2026
+- Updated all three pages, navigation, footers, contact descriptions and documentation to WH Short Message Service (WH SMS). Resource request buttons retain their descriptive names and use the shared data-wh-sms integration.
+- Preserved the supplied WhatsApp destination and resource-specific messages. No new SMS transport or backend automation is implied.
+- Campaign #2 content alignment awaits the signed proposal; backend workflow changes require the actual integration requirements.
