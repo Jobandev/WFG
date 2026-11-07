@@ -1,5 +1,13 @@
 # Wolfgramm Holdings design system
 
+## Current direction — Arrow Accent
+
+The current presentation loads `editorial.css` after `style.css`. Its overrides introduce amber gold (`#F3B42B`), warm ivory (`#F0EDE5`), large editorial headings, squared service cards, a photographic homepage hero, and a gold contact section. The base tokens below remain the underlying styles; the editorial overrides take precedence.
+
+The selected 03 — Arrow Accent artwork is retained at `assets/wh-arrow-accent.png`. The small and full SVG marks reproduce its WH-and-arrow concept for scalable navigation and footer use, without the exploration-sheet heading. The navigation also spells out Wolfgramm Holdings beside the mark.
+
+Wieden+Kennedy informed the emphasis on photography and concise statements; Omnicom informed the parent/division hierarchy and clear capability routes. The implementation remains static HTML, CSS and JavaScript.
+
 ## Brand tokens
 
 The shared tokens live in [`style.css`](./style.css).

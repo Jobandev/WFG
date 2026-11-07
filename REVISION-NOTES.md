@@ -1,5 +1,40 @@
 # Website revision notes
 
+## Showcase navigation — 8 November 2026
+
+- Replaced the two-row header with a rounded floating navigation bar: division pills on the left, centred Arrow Accent branding, and WH SMS plus a social disclosure on the right.
+- Added a native details/summary social dropdown with named Facebook, LinkedIn, Instagram and YouTube links. Escape and outside clicks close it; opening either mobile navigation or the social dropdown closes the other.
+- Applied the header to all three pages, retained active division styling, and checked dropdown bounds at desktop, tablet and small mobile sizes.
+
+## Arrow Accent editorial redesign — 8 November 2026
+
+- Used the supplied 03 — Arrow Accent exploration as the basis for scalable WH marks and retained its original PNG in assets.
+- Reworked the homepage around large typography, prominent KidsCan photography, clearer audience and service copy, a three-step introduction to working with WH, and one primary conversation action.
+- Added shared `editorial.css` styling across the homepage and both division pages: black/ivory section contrast, amber accents, flat editorial cards, and a gold contact section.
+- Retained the existing static implementation and all edited gallery images, resource destinations and division routes.
+- Browser validation passed at 1440px, 390px and 320px across all three pages: no horizontal overflow or broken loaded images. Local references resolve, section tags balance, and whitespace checks pass. No deployment performed.
+
+## Photography finish — 8 November 2026
+
+- Edited all 40 photographs used by the website with the built-in imagegen tool: 38 gallery images and both division-card images. Saved separate edited files; supplied originals are unchanged.
+- Applied a shared editorial brief for natural colour, balanced exposure, controlled highlights, cleaner shadows and restrained detail enhancement. Removed an embedded screenshot zoom-control overlay from the Les Hokianga photo.
+- Connected quality-90 JPEG web copies, approximately 13.4 MB total, instead of the approximately 102.7 MB PNG outputs. Generated PNG outputs remain available in the image-generation library; workspace duplicates were removed following explicit approval.
+- Removed old per-photo CSS colour filters and hidden duplicate backdrop images. Updated HTML image dimensions and shared-asset version identifiers.
+- The full edit brief and original-to-edit inventory are in `assets/gallery/edited/README.md` and `edits.json`. These are AI edits: fine facial details, lettering and backgrounds can differ from the source photographs.
+- Validation: all 40 JPEGs decode, all 40 edited assets load in the browser, 38 original gallery cards remain, and no source-gallery files were modified.
+
+## PDF feedback — 8 November 2026
+
+- Applied the actionable layout and wording recommendations in `Wolfgramm Holdings website - 07_11.pdf` to the homepage and both division pages.
+- Added a two-level header with the parent mark centred above consistent WH Relational and WH Digital links, distinct people/chip icons, active-page underlines, and a shorter WH SMS button.
+- Replaced the uppercase artwork with a consistent provisional lowercase `wh.` mark and matching full wordmark; the original approved artwork requested in the PDF is still needed from Breviss.
+- Removed the orbital loops, centred the full brand inside a circular hero panel with a subtle glow animation, enlarged sector labels and the people/relationships/technology line, and added simple division links beside the introduction.
+- Made gallery cards smaller (four across on desktop), applied consistent cover crops, and condensed captions. This is the PDF's presentation workaround for soft source photos; no AI restoration or new image detail is claimed.
+- Aligned the service offering dividers and buttons, including tablet layouts; separated calendar/contact actions into their own spacious section and gave the contact action secondary styling.
+- Updated footer labels, capitalisation, full-logo sizing, and social-icon spacing. Existing Workshops and Contact destinations remain in place because replacement pages/URLs were not supplied.
+- The optional rotating brand-background concept and a site-search feature are not included in this revision.
+- Validation: browser checks at desktop, tablet and mobile widths, mobile-menu expansion, local asset/link resolution, balanced section tags, and Git whitespace checks. No deployment performed.
+
 Applied the supplied document to all three pages, with the latest image-placement requests from chat.
 
 - Consistent black-and-gold styling, larger typography and simplified navigation.

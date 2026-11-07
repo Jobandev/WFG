@@ -1,0 +1,322 @@
+[
+    {
+        "original":  "assets/gallery/supplied/aaron-mcdonald.jpg",
+        "edited":  "assets/gallery/edited/aaron-mcdonald.jpg",
+        "width":  1449,
+        "height":  1086,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/anaru-grant-anaru-grant-jnr-howard-morrison-jnr-vince-hapi.jpg",
+        "edited":  "assets/gallery/edited/anaru-grant-anaru-grant-jnr-howard-morrison-jnr-vince-hapi.jpg",
+        "width":  1535,
+        "height":  1024,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/anaru-grant-mark-worsop.jpg",
+        "edited":  "assets/gallery/edited/anaru-grant-mark-worsop.jpg",
+        "width":  1449,
+        "height":  1086,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/bayden-barber.jpg",
+        "edited":  "assets/gallery/edited/bayden-barber.jpg",
+        "width":  1871,
+        "height":  841,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/brett-oriley.jpg",
+        "edited":  "assets/gallery/edited/brett-oriley.jpg",
+        "width":  840,
+        "height":  1871,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/ceillhe-sperath.jpg",
+        "edited":  "assets/gallery/edited/ceillhe-sperath.jpg",
+        "width":  1449,
+        "height":  1086,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/dame-areta-koopu.jpg",
+        "edited":  "assets/gallery/edited/dame-areta-koopu.jpg",
+        "width":  1086,
+        "height":  1448,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/dame-julie-chapman.jpg",
+        "edited":  "assets/gallery/edited/dame-julie-chapman.jpg",
+        "width":  1871,
+        "height":  841,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/dame-pania-tyson-nathan.jpg",
+        "edited":  "assets/gallery/edited/dame-pania-tyson-nathan.jpg",
+        "width":  1254,
+        "height":  1254,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/david-letele.jpg",
+        "edited":  "assets/gallery/edited/david-letele.jpg",
+        "width":  1448,
+        "height":  1086,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/derek-fox.jpg",
+        "edited":  "assets/gallery/edited/derek-fox.jpg",
+        "width":  1449,
+        "height":  1086,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/references/image1.jpeg",
+        "edited":  "assets/gallery/edited/division-digital.jpg",
+        "width":  1523,
+        "height":  1032,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/references/image2.png",
+        "edited":  "assets/gallery/edited/division-relational.jpg",
+        "width":  1535,
+        "height":  1024,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/eru-morgan-ming-foon.jpg",
+        "edited":  "assets/gallery/edited/eru-morgan-ming-foon.jpg",
+        "width":  1449,
+        "height":  1086,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/graduation-celebration.jpg",
+        "edited":  "assets/gallery/edited/graduation-celebration.jpg",
+        "width":  1086,
+        "height":  1448,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/graham-wood-tracy-anderson.jpg",
+        "edited":  "assets/gallery/edited/graham-wood-tracy-anderson.jpg",
+        "width":  1254,
+        "height":  1254,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/greg-foran.jpg",
+        "edited":  "assets/gallery/edited/greg-foran.jpg",
+        "width":  1254,
+        "height":  1254,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/helen-leahy.jpg",
+        "edited":  "assets/gallery/edited/helen-leahy.jpg",
+        "width":  1448,
+        "height":  1086,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/ian-ferguson.jpg",
+        "edited":  "assets/gallery/edited/ian-ferguson.jpg",
+        "width":  1449,
+        "height":  1086,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/jb-rousselot.jpg",
+        "edited":  "assets/gallery/edited/jb-rousselot.jpg",
+        "width":  1085,
+        "height":  1449,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/john-campbell.jpg",
+        "edited":  "assets/gallery/edited/john-campbell.jpg",
+        "width":  1871,
+        "height":  841,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/jonno-ben.jpg",
+        "edited":  "assets/gallery/edited/jonno-ben.jpg",
+        "width":  1798,
+        "height":  875,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/judge-williams.jpg",
+        "edited":  "assets/gallery/edited/judge-williams.jpg",
+        "width":  1449,
+        "height":  1086,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/kevin-jenkins.jpg",
+        "edited":  "assets/gallery/edited/kevin-jenkins.jpg",
+        "width":  1254,
+        "height":  1254,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/kidscan-crew.jpg",
+        "edited":  "assets/gallery/edited/kidscan-crew.jpg",
+        "width":  1447,
+        "height":  1087,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/laura-clarke-obe.jpg",
+        "edited":  "assets/gallery/edited/laura-clarke-obe.jpg",
+        "width":  1122,
+        "height":  1402,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/les-hokianga.jpg",
+        "edited":  "assets/gallery/edited/les-hokianga.jpg",
+        "width":  1303,
+        "height":  1207,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/mihingarangi-forbes.jpg",
+        "edited":  "assets/gallery/edited/mihingarangi-forbes.jpg",
+        "width":  1449,
+        "height":  1086,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/ngarimu-blair.jpg",
+        "edited":  "assets/gallery/edited/ngarimu-blair.jpg",
+        "width":  1449,
+        "height":  1086,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/otene-reweti.jpg",
+        "edited":  "assets/gallery/edited/otene-reweti.jpg",
+        "width":  1254,
+        "height":  1254,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/rewi-spraggon.jpg",
+        "edited":  "assets/gallery/edited/rewi-spraggon.jpg",
+        "width":  1449,
+        "height":  1086,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/roger-smith-john-mika.jpg",
+        "edited":  "assets/gallery/edited/roger-smith-john-mika.jpg",
+        "width":  1085,
+        "height":  1449,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/roger-vreugdenhil.jpg",
+        "edited":  "assets/gallery/edited/roger-vreugdenhil.jpg",
+        "width":  1254,
+        "height":  1254,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/sir-wanye-buck-shelford-bernie-reihana.jpg",
+        "edited":  "assets/gallery/edited/sir-wanye-buck-shelford-bernie-reihana.jpg",
+        "width":  1449,
+        "height":  1086,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/steven-adams.jpg",
+        "edited":  "assets/gallery/edited/steven-adams.jpg",
+        "width":  1449,
+        "height":  1086,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/tainui-kaumatua.jpg",
+        "edited":  "assets/gallery/edited/tainui-kaumatua.jpg",
+        "width":  1536,
+        "height":  1024,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/tuihana-ohia-dan-te-whenua-walker.jpg",
+        "edited":  "assets/gallery/edited/tuihana-ohia-dan-te-whenua-walker.jpg",
+        "width":  1085,
+        "height":  1449,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/wally-haumaha-helen-clarke.jpg",
+        "edited":  "assets/gallery/edited/wally-haumaha-helen-clarke.jpg",
+        "width":  1254,
+        "height":  1254,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/wiremu-manaia-chris-bullen.jpg",
+        "edited":  "assets/gallery/edited/wiremu-manaia-chris-bullen.jpg",
+        "width":  1535,
+        "height":  1024,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    },
+    {
+        "original":  "assets/gallery/supplied/zoe-hawke-adrian-te-patu.jpg",
+        "edited":  "assets/gallery/edited/zoe-hawke-adrian-te-patu.jpg",
+        "width":  1871,
+        "height":  841,
+        "tool":  "built-in imagegen",
+        "quality":  90
+    }
+]

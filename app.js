@@ -4,6 +4,7 @@
   const year = document.querySelector('#year');
   const menuButton = document.querySelector('[data-menu-toggle]');
   const navigation = document.querySelector('#navigation');
+  const socialDisclosure = document.querySelector('.social-disclosure');
   const config = window.WFG_CONFIG || {};
   if (year) year.textContent = String(new Date().getFullYear());
 
@@ -11,6 +12,25 @@
     menuButton.addEventListener('click', () => {
       const open = navigation.classList.toggle('is-open');
       menuButton.setAttribute('aria-expanded', String(open));
+      if (open && socialDisclosure) socialDisclosure.open = false;
+    });
+  }
+
+  if (socialDisclosure) {
+    socialDisclosure.addEventListener('toggle', () => {
+      if (socialDisclosure.open && navigation && menuButton) {
+        navigation.classList.remove('is-open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('click', (event) => {
+      if (!socialDisclosure.contains(event.target)) socialDisclosure.open = false;
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && socialDisclosure.open) {
+        socialDisclosure.open = false;
+        socialDisclosure.querySelector('summary').focus();
+      }
     });
   }
 
