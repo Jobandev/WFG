@@ -3,6 +3,7 @@
 :root {
   --gold: #D8AA6A;
   --gold-hover: #E4C497;
+  --gold-text: #090909;
   --black: #090909;
   --surface: #141310;
   --white: #F5F2EC;
@@ -54,9 +55,9 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px s
 .social-icon svg { width: 18px; height: 18px; fill: currentColor; stroke: none; }
 .social-icon:hover { color: var(--gold); }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 16px; border: 1px solid transparent; border-radius: 99px; padding: 14px 24px; font-size: 12px; font-weight: 700; transition: transform .3s, background .3s, box-shadow .3s; }
-.button.primary { background: var(--gold); color: var(--black); box-shadow: 0 8px 25px rgb(216 170 106 / 12%); }
+.button.primary { background: var(--gold); color: var(--gold-text); box-shadow: 0 8px 25px rgb(216 170 106 / 12%); }
 .button.primary:visited, .button.primary:focus-visible, .button.primary:active { color: var(--black); }
-.button.primary:hover { color: var(--black); background: var(--gold-hover); box-shadow: 0 12px 30px rgb(216 170 106 / 25%); transform: translateY(-3px); }
+.button.primary:hover { color: var(--gold-text); background: var(--gold-hover); box-shadow: 0 12px 30px rgb(216 170 106 / 25%); transform: translateY(-3px); }
 .eyebrow { color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: .19em; line-height: 1.7; text-transform: uppercase; }
 .hero { position: relative; overflow: hidden; padding: 185px 0 28px; background: radial-gradient(ellipse at 50% 70%, rgb(216 170 106 / 13%), transparent 65%); }
 .hero-content { text-align: center; }

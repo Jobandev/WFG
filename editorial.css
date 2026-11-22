@@ -1,5 +1,4 @@
 /* Arrow Accent identity: bold editorial typography, human photography, clear divisions. */
-:root { --gold: #F3B42B; --gold-hover: #FFD478; --line: rgb(243 180 43 / 24%); }
 .shell { width: min(1280px, calc(100% - 80px)); }
 .nav, .nav.scrolled { top: 0; width: 100%; padding: 12px 40px 0; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: rgb(9 9 9 / 96%); box-shadow: none; }
 .nav::after { right: 0; left: 0; }
@@ -56,13 +55,12 @@
 .approach-grid article { border-top: 1px solid #C6C0B2; padding-top: 22px; }
 .step-number { display: block; margin-bottom: 36px; font-size: 20px; color: #71603D; }
 .approach-grid h3 { margin-bottom: 18px; font-size: 26px; }
-.contact { background: var(--gold); color: #171713; padding: 90px 0; }
+.contact { background: var(--black); color: var(--white); padding: 90px 0; }
 .contact-panel { max-width: none; border: 0; border-radius: 0; padding: 0; background: transparent; box-shadow: none; text-align: left; }
 .contact-panel h2 { max-width: 1000px; font-size: clamp(40px,6vw,86px); }
-.contact-panel em, .contact-panel .eyebrow { color: #171713; }
-.contact-panel > p:not(.eyebrow) { max-width: 620px; color: #3E331B; font-size: 18px; }
-.contact-panel .button.primary { background: #171713; color: #F5F2EC; margin-top: 32px; }
-.contact-panel .button.primary:hover { background: #33312B; color: white; }
+.contact-panel em, .contact-panel .eyebrow { color: var(--gold); }
+.contact-panel > p:not(.eyebrow) { max-width: 620px; color: var(--muted); font-size: 18px; }
+.contact-panel .button.primary { margin-top: 32px; }
 .chat-preview { display: none; }
 footer { border: 0; padding: 55px 0 36px; }
 .footer-top .brand-logo { width: 210px; height: auto; }
@@ -156,7 +154,7 @@ footer { border: 0; padding: 55px 0 36px; }
 .social-dropdown { position: absolute; z-index: 110; top: calc(100% + 22px); right: 0; width: 300px; padding: 12px; border: 1px solid var(--line); border-radius: 20px; background: #191813; box-shadow: 0 20px 60px rgb(0 0 0 / 45%); }
 .social-dropdown > p { padding: 8px 10px 14px; font-size: 10px; letter-spacing: .14em; color: var(--gold); }
 .social-handle { display: flex; align-items: center; gap: 13px; padding: 12px 10px; border-radius: 10px; color: var(--white); }
-.social-handle:hover { background: rgb(243 180 43 / 9%); }
+.social-handle:hover { background: color-mix(in srgb, var(--gold) 9%, transparent); }
 .social-handle > svg { flex: 0 0 20px; width: 20px; height: 20px; fill: currentColor; }
 .social-handle strong { display: block; font-size: 14px; font-weight: 600; }
 .social-handle small { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; overflow-wrap: anywhere; }
@@ -190,3 +188,11 @@ footer { border: 0; padding: 55px 0 36px; }
 @media (max-width: 370px) {
  .showcase-nav .brand-name { display: none; }
 }
+
+/* Shared logo, links and responsive navigation. */
+.showcase-nav .brand-logo { width: 105px; height: 62px; }
+.button.outline { border: 1px solid var(--gold); color: #59401f; background: transparent; }
+.button.outline:hover { background: var(--gold); color: var(--black); }
+.editorial-link .ui-icon { width: 20px; height: 20px; }
+.calendar-link { justify-content: flex-start; }
+@media (max-width: 700px) { .showcase-nav .brand-logo { width: 88px; height: 52px; } }
