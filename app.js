@@ -1,4 +1,68 @@
 (() => {
+  const standalone = window.matchMedia('(display-mode: standalone)');
+  let installPrompt;
+  let installed = false;
+  let prompting = false;
+
+  window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    installPrompt = event;
+  });
+
+  document.body.insertAdjacentHTML('beforeend', `
+    <button class="install-app" type="button" aria-haspopup="dialog" aria-controls="install-help">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/>
+      </svg>
+      Install app
+    </button>
+    <dialog id="install-help" class="install-help" aria-labelledby="install-title">
+      <h3 id="install-title">Install Wolfgramm Holdings</h3>
+      <p>On iPhone or iPad, open this page in Safari. Tap <strong>Share</strong>, then <strong>Add to Home Screen</strong>.</p>
+      <p>On Android, open Chrome’s menu and choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.</p>
+      <p>On a computer, look for the install icon in Chrome or Edge’s address bar, or check the browser menu. In Safari on Mac, choose <strong>File → Add to Dock</strong>.</p>
+      <p>If you opened the site inside another app, open it in your browser first.</p>
+      <form method="dialog"><button type="submit" autofocus>Done</button></form>
+    </dialog>
+  `);
+
+  const button = document.querySelector('.install-app');
+  const help = document.querySelector('#install-help');
+  const sync = () => { button.hidden = installed || standalone.matches || navigator.standalone === true; };
+  sync();
+  standalone.addEventListener('change', sync);
+  window.addEventListener('appinstalled', () => {
+    installed = true;
+    installPrompt = null;
+    if (help.open) help.close();
+    sync();
+  });
+
+  button.addEventListener('click', async () => {
+    if (prompting) return;
+    if (!installPrompt) {
+      help.showModal();
+      return;
+    }
+
+    const prompt = installPrompt;
+    installPrompt = null;
+    prompting = true;
+    try {
+      const choice = await prompt.prompt();
+      if (choice.outcome === 'accepted') {
+        installed = true;
+        sync();
+      }
+    } catch {
+      if (!button.hidden) help.showModal();
+    } finally {
+      prompting = false;
+    }
+  });
+})();
+
+(() => {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const nav = document.querySelector('.nav');
   const year = document.querySelector('#year');
