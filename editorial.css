@@ -190,12 +190,12 @@ footer { border: 0; padding: 55px 0 36px; }
 }
 
 /* Shared logo, links and responsive navigation. */
-.showcase-nav .brand-logo { width: 210px; height: 126px; }
+.showcase-nav .brand-logo { width: 105px; height: 63px; }
 .button.outline { border: 1px solid var(--gold); color: #59401f; background: transparent; }
 .button.outline:hover { background: var(--gold); color: var(--black); }
 .editorial-link .ui-icon { width: 20px; height: 20px; }
 .calendar-link { justify-content: flex-start; }
-@media (max-width: 700px) { .showcase-nav .brand-logo { width: 150px; height: 90px; } }
+@media (max-width: 700px) { .showcase-nav .brand-logo { width: 90px; height: 54px; } }
 
-@media (min-width: 701px) { .editorial-hero { padding-top: 215px; } .division-hero { padding-top: 225px; } }
-@media (max-width: 700px) { .editorial-hero { padding-top: 175px; } .division-hero { padding-top: 190px; } }
+@media (min-width: 701px) { .editorial-hero { padding-top: 172px; } .division-hero { padding-top: 185px; } }
+@media (max-width: 700px) { .editorial-hero { padding-top: 140px; } .division-hero { padding-top: 155px; } }
