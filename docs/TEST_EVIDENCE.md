@@ -1,5 +1,10 @@
 # Website integration test evidence — 24 November 2026
 
+An initial public-fork CI run failed before tests because WHSMS is private and the
+public repository token cannot check it out. Remediation keeps only preservation
+tests in public CI and runs full E2E in WHSMS private CI against a pinned website
+revision. No credentials or repository visibility/permissions were changed.
+
 Windows, Node 22.20.0, Chromium, two concurrent Playwright workers. Synthetic data.
 
 | Executed command | Result |

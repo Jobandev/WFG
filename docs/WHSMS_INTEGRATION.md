@@ -121,10 +121,12 @@ Known pre-existing Windows baseline issue: WHSMS backend initially ran 203 tests
 Windows cleanup locking). No backend code was changed here and no tests were skipped.
 Linux PR #34 CI was green; the new companion PR runs its full suite on Linux again.
 
-CI checks out companion SHA 2db93631f6e583df476f5f40448605188b3e2029 from the public
-feat/website-assessment-host branch. Update it to the reviewed merged release tag/SHA
-when the companion PR is integrated. Fork PR Actions
-may require Joban to approve execution; no repository setting was changed to bypass it.
+WHSMS is private; its source is not copied to this public website repository. Public
+website CI runs preservation/configuration tests only. Full cross-repository E2E
+runs inside WHSMS's private CI, which checks out the reviewed public website SHA.
+No additional token, cross-repository secret, visibility or permission change is
+needed. Fork PR Actions may require Joban to approve execution; no repository setting
+was changed to bypass it. Review both branches together before updating pinned refs.
 
 ## Review, submission and deployment requirements
 
