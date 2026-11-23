@@ -1,0 +1,8 @@
+{
+  "name": "wfg-whsms-integration-preview",
+  "private": true,
+  "type": "module",
+  "scripts": { "preview": "node tools/preview.mjs", "preview:full": "node tools/start-preview.mjs", "test": "node --test tests/*.test.mjs", "test:e2e": "playwright test" },
+  "engines": { "node": ">=22.12.0" },
+  "devDependencies": { "@playwright/test": "^1.65.1" }
+}

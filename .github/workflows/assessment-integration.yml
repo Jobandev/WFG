@@ -1,0 +1,31 @@
+name: Website assessment integration
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  website-assessments:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      WHSMS_ROOT: ${{ github.workspace }}/whsms
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          repository: M-Moiz-Farooq/wh-visibility-labs-connector
+          ref: 2db93631f6e583df476f5f40448605188b3e2029
+          path: whsms
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: npm --prefix whsms/backend ci
+      - run: npm --prefix whsms/frontend ci
+      - run: npm test
+      - run: npm exec -- playwright install --with-deps chromium
+      - run: npm run test:e2e
