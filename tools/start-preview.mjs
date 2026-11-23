@@ -21,7 +21,7 @@ function start(args, cwd, env) {
   child.on('exit', code => { if (!stopping) { process.exitCode = code || 1; stop(); } });
 }
 start(['backend/src/server.js'], whsms, { PORT: '3301', HOST: '127.0.0.1', NODE_ENV: 'development', N8N_WEBHOOK_ENABLED: 'false', SUBMISSIONS_DB_PATH: 'work/website-preview.sqlite' });
-start(['node_modules/vite/bin/vite.js', '--host', '127.0.0.1', '--port', '5179'], resolve(whsms, 'frontend'), { WHSMS_APP_BASE: '/assessment-app/', WHSMS_API_PROXY_TARGET: 'http://127.0.0.1:3301' });
+start(['node_modules/vite/bin/vite.js', '--host', '127.0.0.1', '--port', '5179'], resolve(whsms, 'frontend'), { WHSMS_APP_BASE: '/assessment-app/', WHSMS_API_PROXY_TARGET: 'http://127.0.0.1:3301', VITE_API_BASE_URL: '/api', VITE_WEBSITE_ORIGIN: 'http://127.0.0.1:8088' });
 start(['tools/preview.mjs'], root, { WFG_PREVIEW_PORT: '8088', WFG_ASSESSMENT_PROXY_TARGET: 'http://127.0.0.1:5179', WFG_API_PROXY_TARGET: 'http://127.0.0.1:3301' });
 process.once('SIGINT', stop); process.once('SIGTERM', stop);
 console.log('Synthetic local preview only. Open http://127.0.0.1:8088/digital/');
