@@ -67,7 +67,12 @@ test('backend failure stays unsuccessful and retries keep the original session',
   await frame.getByRole('button', { name: 'No thanks' }).click();
   await expect(frame.getByRole('alert')).toContainText('Synthetic backend unavailable');
   await expect(frame.getByText('Reference:')).toHaveCount(0);
+  const retryReceipt = page.waitForResponse(response => response.url().endsWith('/api/connectors/submissions'));
   await frame.getByRole('button', { name: 'Try sending again' }).click();
+  const response = await retryReceipt;
+  expect(response.status()).toBe(201);
+  const receipt = await response.json();
+  expect(receipt.success).toBe(true); expect(receipt.submissionId).toMatch(/^sub_/);
   await expect(frame.getByRole('status')).toContainText(/Reference: sub_/);
   expect(sessions).toHaveLength(2); expect(sessions[0]).toBe(sessions[1]);
 });
