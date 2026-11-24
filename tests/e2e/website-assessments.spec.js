@@ -4,6 +4,7 @@ import { pathToFileURL } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
 const whsms = resolve(process.env.WHSMS_ROOT || '../whsms-website-host');
 const { pathways } = await import(pathToFileURL(resolve(whsms, 'frontend/src/config/pathways.js')).href);
+const { verifyWebsiteAutomation } = await import(pathToFileURL(resolve(whsms, 'tests/fixtures/verify-website-automation.mjs')).href);
 async function enter(page, pathway) {
   await page.goto('/digital/');
   await expect(page.locator('[data-wh-sms]').first()).toHaveAttribute('href', /^https:\/\/wa.me\//);
@@ -51,6 +52,8 @@ for (const pathway of ['sponsor', 'cyber-resilience', 'business-systems']) test(
     expect(row.submission_id).toBe(receipt.submissionId); expect(Number.isFinite(Date.parse(row.received_at))).toBe(true);
     expect(db.prepare('SELECT state FROM automation_outbox WHERE submission_id=?').get(row.submission_id).state).toBe('pending');
   } finally { db.close(); }
+  const automation = await verifyWebsiteAutomation(resolve(whsms, 'work/website-e2e.sqlite'), sent.metadata.sessionId);
+  expect(automation).toMatchObject({ mode: 'mock-n8n-code', delivered: 1, queueState: 'delivered', accepted: 1, intents: pathway === 'sponsor' ? 1 : 0, messages: pathway === 'sponsor' ? 1 : 0 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 test('backend failure stays unsuccessful and retries keep the original session', async ({ page }) => {

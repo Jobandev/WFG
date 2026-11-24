@@ -1,5 +1,37 @@
 # WFG → WHSMS website integration
 
+## Final integration update — 24 November 2026
+
+Collaborator push access is now verified. The current website branch is
+feature/whsms-integration in Jobandev/WFG; the earlier fork PR remains preserved.
+GitHub Pages was inspected: legacy publishing from main:/, HTTPS enforced. No main
+push or deployment occurred. Current companion: integration/website-backend-n8n,
+combining #34, #35 dark/gold theme and #36 host integration. The completed dark/gold
+theme is preserved; the earlier optional ivory override has been removed.
+
+Website E2E now goes beyond receipt persistence: it runs the actual queued event
+through a local mock of the generated n8n Code contract, durable acceptance gateway
+and fake staff notification. All three services are tested on desktop/mobile;
+Sponsor creates one mock notification, assessment-only Cyber/Business create none.
+Business production acceptance and notification routing remain disabled.
+
+After submitting synthetic forms, run the safe bounded workflow preview from WFG:
+
+```powershell
+$env:LOCAL_WORKFLOW_RUN = 'synthetic-only'
+$env:SUBMISSIONS_DB_PATH = (Resolve-Path '../whsms-website-host/work/website-preview.sqlite').Path
+npm --prefix ../whsms-website-host/backend run workflow:preview -- --limit 10
+```
+
+This uses only ephemeral loopback mock services; it does not activate n8n or send
+email. The corrected inactive n8n JSON, 25-node audit, compatibility matrix, credential
+setup and production gates live only in the private WHSMS repository. See its
+FINAL_INTEGRATION_HANDOVER.md and docs/architecture/n8n-workflow-compatibility.md.
+Actual n8n import/SMTP/gateway hosting still require approved staging access.
+
+The historical fork/baseline notes below explain the earlier review stage; use the
+new direct website branch and final companion integration branch for release review.
+
 ## Architecture and repository boundaries
 
 Website baseline: Jobandev/WFG main ee4f02c. Application baseline: WHSMS PR #34,

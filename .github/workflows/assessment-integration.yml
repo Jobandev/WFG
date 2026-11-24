@@ -1,7 +1,7 @@
 name: Website assessment integration
 on:
   push:
-    branches: [feat/whsms-assessment-integration]
+    branches: [feat/whsms-assessment-integration, feature/whsms-integration]
   pull_request:
     branches: [main]
   workflow_dispatch:

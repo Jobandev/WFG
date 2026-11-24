@@ -28,14 +28,16 @@
     // Changing pathway must not silently discard in-memory answers.
     if (stage.childElementCount && !window.confirm('Changing pathways will clear answers in the current assessment. Continue?')) return;
     title.textContent = pathways[pathway];
-    status.textContent = development
+    const readyMessage = development
       ? 'Local development preview — synthetic data only. Responses are saved to local SQLite. Cyber results and Business Systems content, consent and routing remain pending approval. No notifications are sent.'
       : 'Complete the assessment below. Contact details are requested only according to the selected pathway.';
+    status.textContent = `Loading assessment… ${readyMessage}`;
     const frame = document.createElement('iframe');
     frame.title = `${pathways[pathway]} assessment`; frame.src = url.href;
     frame.referrerPolicy = 'no-referrer'; frame.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms');
     frame.className = 'assessment-frame';
     activeFrame = frame; activeOrigin = url.origin;
+    frame.addEventListener('load', () => { if (activeFrame === frame) status.textContent = readyMessage; });
     frame.addEventListener('error', () => { status.textContent = 'The assessment could not load. Use the separate-page link or WhatsApp.'; });
     const fallback = document.createElement('a'); fallback.href = url.href; fallback.target = '_blank'; fallback.rel = 'noopener noreferrer';
     fallback.className = 'editorial-link'; fallback.textContent = 'Open assessment in a separate page';
