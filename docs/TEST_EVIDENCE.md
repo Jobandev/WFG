@@ -2,11 +2,17 @@
 
 Final integration update: the backend combines #35's dark/gold theme and portable
 Windows tests. The old Windows backup failures below are historical, not current.
-The current full local suites pass: backend 225, frontend 87, assessment browser 38.
+The final full local suites pass: backend 229, frontend 87, assessment browser 38.
 Website browser tests remain 14 and now also dispatch each actual persisted job
 through generated n8n validation Code, a real local durable gateway and fake staff
 notification. Accepted counts remain one across replay; assessment-only Cyber and
 Business produce zero mock notifications. These are local mocks, not an n8n engine.
+
+A Linux CI retry test initially failed while awaiting the UI after resubmission.
+The test now first awaits and verifies the real HTTP 201 receipt/body, then checks
+completion and same-session reuse. Final local website run: 14 passed, 0 failed.
+The private cross-repository Linux job also passed all 14 strengthened tests. No
+application validation, security check or expected status was weakened.
 
 An initial public-fork CI run failed before tests because WHSMS is private and the
 public repository token cannot check it out. Remediation keeps only preservation
