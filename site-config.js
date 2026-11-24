@@ -5,5 +5,6 @@ window.WFG_CONFIG = {
   // Public application address, never a webhook or credential. Disabled until approved.
   assessmentAppUrl: null,
   assessmentPathways: { sponsor: false, 'cyber-resilience': false, 'business-systems': false },
+  assessmentPreviewOnly: true,
   assessmentDevelopmentPreview: false
 };
