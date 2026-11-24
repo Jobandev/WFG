@@ -7,10 +7,10 @@ const { pathways } = await import(pathToFileURL(resolve(whsms, 'frontend/src/con
 const { verifyWebsiteAutomation } = await import(pathToFileURL(resolve(whsms, 'tests/fixtures/verify-website-automation.mjs')).href);
 async function enter(page, pathway) {
   await page.goto('/digital/');
-  await expect(page.locator('[data-wh-sms]').first()).toHaveAttribute('href', /^https:\/\/wa.me\//);
+  await expect(page.locator('.nav-actions [data-whsms-entry]')).toHaveAttribute('href', '../wh-sms/');
   await page.locator(`[data-website-assessment="${pathway}"]`).click();
   await expect(page.locator('[data-assessment-status]')).toContainText('synthetic data only');
-  return page.frameLocator('iframe');
+  return page.frameLocator('iframe:not([hidden])');
 }
 async function questions(frame, pathway) {
   for (const question of pathways[pathway].questions) {
@@ -78,24 +78,24 @@ test('backend failure stays unsuccessful and retries keep the original session',
 });
 test('original navigation, WhatsApp and subdirectory links still work', async ({ page }) => {
   await page.goto('/WFG/');
-  await expect(page.locator('[data-wh-sms]').first()).toHaveAttribute('href', /wa.me\/64226064444/);
-  await page.locator('[data-website-assessment="hub"]').click();
-  await expect(page).toHaveURL(/\/WFG\/assessments\//);
-  await expect(page.getByRole('button', { name: 'Open Sponsor pathway' })).toBeVisible();
-  if (test.info().project.name === 'mobile') {
+  await expect(page.locator('.nav-actions [data-whsms-entry]')).toHaveCount(1);
+  await page.locator('.nav-actions [data-whsms-entry]').click();
+  await expect(page).toHaveURL(/\/WFG\/wh-sms\//);
+  await expect(page.getByRole('link', { name: 'Start Assessment: Visibility Labs Sponsor' })).toBeVisible();
+  if (test.info().project.name !== 'desktop') {
     await page.getByRole('button', { name: 'Open menu' }).click();
     await expect(page.locator('[data-menu-toggle]')).toHaveAttribute('aria-expanded', 'true');
   }
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('link', { name: 'Relational Outcomes' }).click();
   await expect(page).toHaveURL(/\/relational\//);
-  await expect(page.locator('[data-wh-sms]').first()).toHaveAttribute('href', /^https:\/\/wa.me\//);
+  await expect(page.locator('.nav-actions [data-whsms-entry]')).toHaveAttribute('href', '../wh-sms/');
 });
 test('disabled public settings and hostile pathway values cannot load assessments', async ({ page }) => {
   await page.route('**/site-config.js*', route => route.fulfill({ contentType: 'text/javascript', body: 'window.WFG_CONFIG={whatsappUrl:"https://wa.me/64226064444",assessmentAppUrl:null,assessmentPathways:{sponsor:false}};' }));
-  await page.goto('/assessments/?pathway=sponsor');
+  await page.goto('/wh-sms/?pathway=sponsor');
   await expect(page.locator('[data-assessment-status]')).toContainText('awaiting release approval');
   await expect(page.locator('iframe')).toHaveCount(0);
-  await page.goto('/assessments/?pathway=javascript:alert(1)');
+  await page.goto('/wh-sms/?pathway=javascript:alert(1)');
   await expect(page.locator('[data-assessment-status]')).toContainText('choose one');
   await expect(page.locator('iframe')).toHaveCount(0);
 });
@@ -107,4 +107,54 @@ test('iframe resizes without exposing answers and ignores messages from the wron
   await page.evaluate(() => window.postMessage({ type: 'whsms:height', height: 12345 }, location.origin));
   await expect(iframe).not.toHaveCSS('height', '12345px');
   await expect.poll(() => iframe.evaluate(element => element.style.height)).toBe(previous);
+});
+
+test('context navigation and browser history preserve questionnaire progress', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('.nav-actions [data-whsms-entry]')).toHaveCount(1);
+  await page.locator('.nav-actions [data-whsms-entry]').click();
+  await expect(page).toHaveURL(/\/wh-sms\/$/);
+  const back = page.locator('[data-whsms-context-action]');
+  await expect(back).toHaveText('← Back to Website');
+  await expect(page.locator('.service-grid > article')).toHaveCount(3);
+  await expect(page.locator('.nav-actions [data-whsms-entry]')).toHaveCount(0);
+  await page.getByRole('link', { name: 'Start Assessment: Visibility Labs Sponsor' }).click();
+  await expect(back).toHaveText('← Back to WH SMS');
+  const frame = page.frameLocator('iframe:not([hidden])');
+  await expect(frame.locator('.wh-site-header, .wh-pathway-nav, .wh-site-footer, .wh-page-heading')).toHaveCount(0);
+  const first = pathways.sponsor.questions[0];
+  await frame.getByRole('button', { name: first.choices[0].label, exact: false }).click();
+  await expect(frame.getByRole('group', { name: pathways.sponsor.questions[1].prompt })).toBeVisible();
+  await back.click();
+  await expect(back).toHaveText('← Back to Website');
+  await expect(page.locator('iframe')).toHaveCount(1);
+  await page.goBack();
+  await expect(back).toHaveText('← Back to WH SMS');
+  await expect(frame.getByRole('group', { name: pathways.sponsor.questions[1].prompt })).toBeVisible();
+  await page.goForward();
+  await page.getByRole('link', { name: 'Start Assessment: Visibility Labs Sponsor' }).click();
+  await expect(frame.getByRole('group', { name: pathways.sponsor.questions[1].prompt })).toBeVisible();
+  await back.click(); await back.click();
+  await expect(page).toHaveURL(/8088\/$/);
+});
+
+test('embedded design uses original website tokens, fonts and button geometry', async ({ page }) => {
+  await page.goto('/');
+  const reference = await page.locator('.nav-actions .button').evaluate(element => {
+    const s = getComputedStyle(element); return { font: s.fontFamily, radius: s.borderRadius, gold: getComputedStyle(document.documentElement).getPropertyValue('--gold').trim() };
+  });
+  await page.goto('/wh-sms/?pathway=sponsor');
+  await expect(page.locator('[data-whsms-context-action]')).toHaveText('← Back to WH SMS');
+  const frame = page.frameLocator('iframe');
+  await expect(frame.locator('link[href$="wh-sms/assessment-theme.css"]')).toHaveCount(1);
+  await expect.poll(() => frame.locator('button').first().evaluate(element => getComputedStyle(element).borderRadius)).toBe(reference.radius);
+  const actual = await frame.locator('button').first().evaluate(element => {
+    const s = getComputedStyle(element); return { font: s.fontFamily, gold: getComputedStyle(document.documentElement).getPropertyValue('--gold').trim() };
+  });
+  expect(actual.font).toBe(reference.font); expect(actual.gold).toBe(reference.gold);
+  await frame.locator('button').first().focus();
+  await expect(frame.locator('button').first()).toBeFocused();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.locator('[data-whsms-context-action]').click();
+  await expect(page.locator('.service-grid')).toBeVisible();
 });

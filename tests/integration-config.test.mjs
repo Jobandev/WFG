@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { runInNewContext } from 'node:vm';
 test('committed configuration cannot enable unapproved production pathways', () => {
@@ -11,15 +11,22 @@ test('committed configuration cannot enable unapproved production pathways', () 
   assert.ok(Object.values(config.assessmentPathways).every(value => value === false));
   assert.equal(config.whatsappUrl, 'https://wa.me/64226064444');
 });
-test('all original WhatsApp anchors and messages are preserved', () => {
-  const anchors = source => [...source.matchAll(/<a\b[^>]*data-wh-sms[^>]*>[\s\S]*?<\/a>/g)].map(match => match[0]);
+test('genuine WhatsApp resources remain unchanged while demo entries use WH SMS', () => {
+  const anchors = source => [...source.matchAll(/<a\b[^>]*data-wh-sms[^>]*>[\s\S]*?<\/a>/g)].map(match => match[0]).filter(anchor => !anchor.includes('data-message="Kia ora, I would like to start a conversation."'));
   for (const file of ['index.html', 'digital/index.html', 'relational/index.html']) {
-    const original = execFileSync('git', ['show', `origin/main:${file}`], { encoding: 'utf8' });
-    assert.deepEqual(anchors(readFileSync(file, 'utf8')), anchors(original), file);
+    const current = readFileSync(file, 'utf8');
+    // Compare to upstream when Git metadata exists; exported source ZIPs omit .git.
+    if (existsSync('.git')) {
+      const original = execFileSync('git', ['show', `origin/main:${file}`], { encoding: 'utf8' });
+      assert.deepEqual(anchors(current), anchors(original), file);
+    } else {
+      assert.ok(anchors(current).every(anchor => /https:\/\/wa\.me\//.test(anchor)), `${file}: retained resource links must remain WhatsApp links`);
+    }
+    assert.match(readFileSync(file, 'utf8'), /href="(?:\.\.\/)?wh-sms\/" data-whsms-entry/);
   }
 });
 test('host integration contains no copied backend or webhook settings', () => {
-  const bridge = readFileSync('assessments/bridge.js', 'utf8');
+  const bridge = readFileSync('wh-sms/bridge.js', 'utf8');
   assert.doesNotMatch(bridge, /N8N_|WEBHOOK_SECRET|contact\.email|postMessage\(/);
   assert.match(bridge, /Object\.hasOwn\(pathways, pathway\)/);
   assert.match(bridge, /referrerPolicy = 'no-referrer'/);
