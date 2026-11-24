@@ -1,0 +1,16 @@
+/* The owning website supplies its real design tokens and typography to the embedded app. */
+@import url('../style.css');
+@import url('../editorial.css');
+html[data-wfg-embedded] {
+  font-family: var(--body);
+  --wh-bg: var(--black); --wh-surface: var(--surface); --wh-text: var(--white);
+  --wh-muted: var(--muted); --wh-gold: var(--gold); --wh-gold-hover: var(--gold-hover);
+  --wh-on-gold: var(--gold-text); --wh-border: var(--line); --wh-focus: var(--gold);
+}
+html[data-wfg-embedded] body { min-width: 0; font-family: var(--body); background: var(--black); }
+html[data-wfg-embedded] main { max-width: none; margin: 0; padding: 0; }
+html[data-wfg-embedded] .wh-conversation { max-width: none; border-radius: 3px; }
+html[data-wfg-embedded] h2, html[data-wfg-embedded] h3 { font-family: var(--display); font-weight: 600; }
+html[data-wfg-embedded] button { border-radius: 3px; padding: 16px 24px; font-family: var(--body); }
+html[data-wfg-embedded] button:hover { transform: translateY(-2px); }
+html[data-wfg-embedded] input, html[data-wfg-embedded] textarea { border-radius: 3px; font-family: var(--body); }
