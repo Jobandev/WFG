@@ -2,9 +2,17 @@
 
 ## Direct questionnaire email
 
-The questionnaire sends contact details, answers, and a reference through Resend
+The questionnaire sends contact details, answers, and a reference by email
 to `info@wgholdings.co.nz` and copies `js8490674@gmail.com`. Replies go to the
 email address entered on the form.
+
+For Gmail SMTP, enable 2-Step Verification on the sending account and create
+an app password. In Vercel Production, set the account address in
+`GMAIL_SENDER` and save the password as the secret `GMAIL_APP_PASSWORD`.
+Deploy after updating the settings. The endpoint selects Gmail SMTP when the
+app password is set and uses Resend otherwise.
+
+For Resend:
 
 1. Connect Resend to the Vercel project and verify `mail.wgholdings.co.nz` as a
    sending domain. The default sender is `questionnaire@mail.wgholdings.co.nz`.
@@ -16,9 +24,10 @@ email address entered on the form.
    reaches the inbox. The public form uses `/api/questionnaire` on the host
    configured in `site-config.js`.
 
-The form confirms when Resend accepts the message. A retry uses the same
-submission reference as its Resend idempotency key. Closing the page before
-successful submission loses the unsent answers.
+The form confirms when the mail provider accepts the message. Resend uses the
+submission reference as its idempotency key. Gmail SMTP retries can produce a
+duplicate with the same reference if the first send was accepted before a
+timeout. Closing the page before successful submission loses the unsent answers.
 
 To test real email from the local Node preview, set `WFG_PREVIEW_EMAIL=1`
 before running `npm run preview`. This forwards questionnaire submissions to

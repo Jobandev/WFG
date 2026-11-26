@@ -1,5 +1,6 @@
 ﻿import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
+import nodemailer from 'nodemailer';
 
 const context = { window: {} };
 runInNewContext(readFileSync(new URL('../wh-sms/questions.js', import.meta.url), 'utf8'), context);
@@ -10,7 +11,7 @@ const htmlEntities = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'
 const escapeHtml = value => value.replace(/[&<>"']/g, character => htmlEntities[character]);
 const defaultSender = 'questionnaire@mail.wgholdings.co.nz';
 
-export async function sendResend(submission, env = process.env) {
+function questionnaireMessage(submission, recipient) {
   const { id, title, contact, responses } = submission;
   const body = [
     `Reference: ${id}`, `Questionnaire: ${title}`, `Name: ${contact.name}`,
@@ -37,22 +38,51 @@ export async function sendResend(submission, env = process.env) {
         <p style="font-size:12px;color:#655d50">Reference ${id}</p>
       </div>
     </div>`;
-  const recipient = env.QUESTIONNAIRE_RECIPIENT || defaultRecipient;
+  return {
+    to: [recipient],
+    ...(recipient.toLowerCase() === copyRecipient ? {} : { cc: [copyRecipient] }),
+    replyTo: contact.email,
+    subject: `New questionnaire: ${contact.name} \u2013 ${title}`,
+    text: body,
+    html
+  };
+}
+
+export async function sendGmailSmtp(submission, env = process.env) {
+  const from = env.GMAIL_SENDER.trim();
+  const transport = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: { user: from, pass: env.GMAIL_APP_PASSWORD.replace(/\s/g, '') },
+    connectionTimeout: 8000,
+    greetingTimeout: 5000,
+    socketTimeout: 12000
+  });
+  const message = questionnaireMessage(submission, env.QUESTIONNAIRE_RECIPIENT || defaultRecipient);
+  const result = await transport.sendMail({
+    ...message,
+    from,
+    messageId: `<${submission.id}@${from.split('@')[1]}>`
+  });
+  if (!result.accepted.some(address => address.toLowerCase() === message.to[0].toLowerCase())) {
+    throw new Error('Gmail did not accept the primary recipient');
+  }
+}
+
+export async function sendResend(submission, env = process.env) {
+  const { replyTo, ...message } = questionnaireMessage(submission, env.QUESTIONNAIRE_RECIPIENT || defaultRecipient);
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${env.RESEND_API_KEY.trim()}`,
       'Content-Type': 'application/json',
-      'Idempotency-Key': `questionnaire/${id}`
+      'Idempotency-Key': `questionnaire/${submission.id}`
     },
     body: JSON.stringify({
       from: env.QUESTIONNAIRE_SENDER || defaultSender,
-      to: [recipient],
-      ...(recipient.toLowerCase() === copyRecipient ? {} : { cc: [copyRecipient] }),
-      reply_to: contact.email,
-      subject: `New questionnaire: ${contact.name} \u2013 ${title}`,
-      text: body,
-      html
+      ...message,
+      reply_to: replyTo
     }),
     signal: AbortSignal.timeout(12000)
   });
@@ -91,7 +121,9 @@ function validate(input) {
   return { id: input.id, title, contact, responses };
 }
 
-export function createQuestionnaireHandler({ env = process.env, send = sendResend } = {}) {
+export function createQuestionnaireHandler({ env = process.env, send } = {}) {
+  const useGmail = Boolean(env.GMAIL_APP_PASSWORD?.trim());
+  const deliver = send || (useGmail ? sendGmailSmtp : sendResend);
   return async request => {
     const reply = (status, body) => Response.json(body, {
       status, headers: { 'Cache-Control': 'no-store' }
@@ -101,8 +133,9 @@ export function createQuestionnaireHandler({ env = process.env, send = sendResen
       return reply(403, {});
     }
     if (request.headers.get('content-type') !== 'application/json') return reply(415, {});
-    if (!mailbox.test(env.QUESTIONNAIRE_SENDER || defaultSender) ||
-        !mailbox.test(env.QUESTIONNAIRE_RECIPIENT || defaultRecipient) || !env.RESEND_API_KEY?.trim()) {
+    const sender = useGmail ? env.GMAIL_SENDER?.trim() : env.QUESTIONNAIRE_SENDER || defaultSender;
+    if (!mailbox.test(sender || '') || !mailbox.test(env.QUESTIONNAIRE_RECIPIENT || defaultRecipient) ||
+        (!useGmail && !env.RESEND_API_KEY?.trim())) {
       return reply(503, { message: 'Email delivery is temporarily unavailable.' });
     }
     let input;
@@ -121,12 +154,13 @@ export function createQuestionnaireHandler({ env = process.env, send = sendResen
     const submission = validate(input);
     if (!submission) return reply(400, { message: 'Check your contact details and answers.' });
     try {
-      await send(submission, env);
+      await deliver(submission, env);
       return reply(200, { reference: submission.id });
     } catch (error) {
       console.error('Questionnaire email failed', {
         reference: submission.id,
-        provider: 'resend',
+        provider: useGmail ? 'gmail_smtp' : 'resend',
+        ...(Number.isInteger(error?.responseCode) ? { smtpCode: error.responseCode } : {}),
         ...(Number.isInteger(error?.status) ? { status: error.status } : {}),
         ...(error?.name === 'TimeoutError' ? { timeout: true } : {})
       });

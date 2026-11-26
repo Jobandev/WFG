@@ -3,7 +3,33 @@ import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
-import { createQuestionnaireHandler, sendResend } from '../tools/questionnaire-mail.mjs';
+import nodemailer from 'nodemailer';
+import { createQuestionnaireHandler, sendGmailSmtp, sendResend } from '../tools/questionnaire-mail.mjs';
+
+test('Gmail SMTP uses TLS and requires acceptance of the primary recipient', async t => {
+  const id = randomUUID();
+  const sendMail = t.mock.fn(async message => {
+    assert.equal(message.from, 'sender@gmail.com');
+    assert.equal(message.replyTo, 'sample@example.com');
+    assert.deepEqual(message.to, ['info@wgholdings.co.nz']);
+    assert.equal(message.messageId, `<${id}@gmail.com>`);
+    return { accepted: ['js8490674@gmail.com'] };
+  });
+  t.mock.method(nodemailer, 'createTransport', options => {
+    assert.equal(options.host, 'smtp.gmail.com');
+    assert.equal(options.port, 465);
+    assert.equal(options.secure, true);
+    assert.deepEqual(options.auth, { user: 'sender@gmail.com', pass: 'abcd1234' });
+    return { sendMail };
+  });
+  await assert.rejects(sendGmailSmtp({
+    id, title: 'Test questionnaire',
+    contact: { name: 'Sample Person', email: 'sample@example.com' },
+    responses: []
+  }, {
+    GMAIL_SENDER: 'sender@gmail.com', GMAIL_APP_PASSWORD: 'abcd 1234'
+  }), /did not accept the primary recipient/);
+});
 
 test('Resend receives the questionnaire and reuses its reference for retries', async t => {
   const id = randomUUID();
