@@ -1,5 +1,29 @@
 # WFG → WHSMS website integration
 
+## Direct questionnaire email
+
+The questionnaire sends contact details, answers, and a reference through Resend
+to `info@wgholdings.co.nz` and copies `js8490674@gmail.com`. Replies go to the
+email address entered on the form.
+
+1. Connect Resend to the Vercel project and verify `mail.wgholdings.co.nz` as a
+   sending domain. The default sender is `questionnaire@mail.wgholdings.co.nz`.
+   Set `QUESTIONNAIRE_SENDER` to use an address on another verified domain.
+2. In Vercel Production, ensure `RESEND_API_KEY` is set as a secret and set
+   `QUESTIONNAIRE_SITE_ORIGIN` to the exact website origin with no trailing
+   slash. Set `QUESTIONNAIRE_RECIPIENT` to change the primary inbox.
+3. Deploy the updated endpoint, submit a test questionnaire, and confirm it
+   reaches the inbox. The public form uses `/api/questionnaire` on the host
+   configured in `site-config.js`.
+
+The form confirms when Resend accepts the message. A retry uses the same
+submission reference as its Resend idempotency key. Closing the page before
+successful submission loses the unsent answers.
+
+To test real email from the local Node preview, set `WFG_PREVIEW_EMAIL=1`
+before running `npm run preview`. This forwards questionnaire submissions to
+the production endpoint. Use sample details for test submissions.
+
 ## Final integration update — 24 November 2026
 
 Collaborator push access is now verified. The current website branch is

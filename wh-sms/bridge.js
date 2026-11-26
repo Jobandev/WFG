@@ -12,6 +12,11 @@
   const frames = new Map();
   const previewAnswers = new Map();
   const previewSteps = new Map();
+  const submissions = new Map();
+  const submitUrl = config.questionnaireSubmitUrl;
+  const localContactPreview = !submitUrl &&
+    (location.protocol === 'file:' || ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname));
+  const showContactStep = Boolean(submitUrl) || localContactPreview;
   let activeFrame = null, activeOrigin = null;
   window.addEventListener('message', event => {
     if (!activeFrame || event.source !== activeFrame.contentWindow || event.origin !== activeOrigin || event.data?.type !== 'whsms:height' ||
@@ -27,12 +32,15 @@
     selection.hidden = !!valid; questionnaire.hidden = !valid;
     back.textContent = valid ? '← Back to WH SMS' : '← Back to Website';
     back.href = valid ? location.pathname : '../';
+    status.hidden = false;
     status.textContent = pathway && !valid ? 'Please choose one of the three pathways below.' : 'Choose an assessment. Production availability remains subject to release approval.';
     if (valid) {
       title.textContent = pathways[pathway];
       if (config.assessmentPreviewOnly === true && window.WHSMS_PREVIEW_QUESTIONS?.[pathway]) {
         showPreview(pathway);
-        status.textContent = 'Questionnaire preview only — answers stay in this browser tab and are not submitted or saved to a server.';
+        status.textContent = submitUrl
+          ? 'Complete the questionnaire and add your contact details at the end.'
+          : 'Questionnaire preview only — answers stay in this browser tab and are not submitted or saved to a server.';
       } else if (config.assessmentPathways?.[pathway] !== true || !config.assessmentAppUrl) {
         status.textContent = `${pathways[pathway]} is awaiting release approval.`;
       } else {
@@ -72,7 +80,7 @@
       stage.append(panel);
     }
     panel.hidden = false;
-    const answers = previewAnswers.get(pathway) || {};
+    let answers = previewAnswers.get(pathway) || {};
     previewAnswers.set(pathway, answers);
     let index = previewSteps.get(pathway) || 0;
     const questions = data.questions;
@@ -84,13 +92,18 @@
     };
     function draw() {
       panel.replaceChildren();
+      const submission = submissions.get(pathway);
+      const confirmed = index >= questions.length && Boolean(submission?.reference || submission?.previewComplete);
+      panel.classList.toggle('preview-confirmation', confirmed);
+      if (!panel.hidden) status.hidden = confirmed;
       if (index >= questions.length) {
+        if (showContactStep) { drawContact(); return; }
         panel.append(make('p', 'preview-kicker', 'PREVIEW COMPLETE'));
         panel.append(make('h2', '', 'Thank you for exploring the questions.'));
         panel.append(make('p', '', 'No answers have been submitted, stored on a server, or sent to Wolfgramm Holdings.'));
         const restart = make('button', 'button primary', 'Start again');
         restart.type = 'button';
-        restart.addEventListener('click', () => { previewAnswers.set(pathway, {}); index = 0; previewSteps.set(pathway, index); draw(); });
+        restart.addEventListener('click', restartQuestionnaire);
         panel.append(restart);
         return;
       }
@@ -124,7 +137,7 @@
       const actions = make('div', 'preview-actions');
       const prev = make('button', 'button', 'Previous'); prev.type = 'button'; prev.disabled = index === 0;
       prev.addEventListener('click', () => { index--; previewSteps.set(pathway, index); draw(); });
-      const next = make('button', 'button primary', index === questions.length - 1 ? 'Finish preview' : 'Next question');
+      const next = make('button', 'button primary', index === questions.length - 1 ? (showContactStep ? 'Your details' : 'Finish preview') : 'Next question');
       next.type = 'submit'; actions.append(prev, next); form.append(actions);
       form.addEventListener('submit', event => {
         event.preventDefault();
@@ -132,6 +145,105 @@
         if (q.required && !value) { error.textContent = 'Please answer this question to continue.'; return; }
         answers[q.id] = value || '';
         index++; previewSteps.set(pathway, index); draw();
+      });
+      panel.append(form);
+    }
+    function restartQuestionnaire() {
+      answers = {};
+      previewAnswers.set(pathway, answers);
+      submissions.delete(pathway);
+      index = 0;
+      previewSteps.set(pathway, index);
+      draw();
+    }
+    function drawContact() {
+      const submission = submissions.get(pathway) || { contact: {}, busy: false };
+      submissions.set(pathway, submission);
+      if (submission.reference || submission.previewComplete) {
+        const checkmark = make('span', 'preview-confirmation-icon', '✓');
+        checkmark.setAttribute('aria-hidden', 'true');
+        const heading = make('h2', '', submission.previewComplete ? 'Preview complete' : 'Thank you for getting in touch.');
+        heading.tabIndex = -1;
+        panel.append(checkmark, heading);
+        panel.append(make('p', '', submission.previewComplete
+          ? 'Email delivery is off in this local preview.'
+          : 'We’ve received your enquiry. If we need any more details, we’ll get in touch using the email address you provided.'));
+        const returnLink = make('a', 'button primary', 'Back to WH SMS');
+        returnLink.href = location.pathname;
+        returnLink.addEventListener('click', event => {
+          if (event.button || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+          event.preventDefault();
+          previewAnswers.delete(pathway);
+          previewSteps.delete(pathway);
+          submissions.delete(pathway);
+          navigate(null);
+        });
+        panel.append(returnLink);
+        if (!panel.hidden) heading.focus();
+        return;
+      }
+      panel.append(make('h2', '', 'Your details'));
+      const form = make('form', 'preview-form');
+      for (const [name, labelText, type, autocomplete] of [
+        ['name', 'Full name', 'text', 'name'],
+        ['email', 'Email address', 'email', 'email'],
+        ['phone', 'Phone number (optional)', 'tel', 'tel']
+      ]) {
+        const label = make('label', '', labelText);
+        const input = make('input', 'preview-text');
+        Object.assign(input, { name, type, autocomplete, required: name !== 'phone',
+          maxLength: { name: 120, email: 254, phone: 40 }[name], value: submission.contact[name] || '' });
+        input.addEventListener('input', () => { submission.contact[name] = input.value; });
+        label.append(input);
+        form.append(label);
+      }
+      form.append(make('p', '', localContactPreview
+        ? 'Local preview. Use sample contact details to test the form.'
+        : 'Wolfgramm Holdings will receive your answers and contact details so the team can respond.'));
+      const error = make('p', 'preview-error', submission.error);
+      error.setAttribute('role', 'alert');
+      form.append(error);
+      const actions = make('div', 'preview-actions');
+      const previous = make('button', 'button', 'Previous');
+      previous.type = 'button';
+      previous.addEventListener('click', () => { index--; previewSteps.set(pathway, index); draw(); });
+      actions.append(previous, make('button', 'button primary', submission.busy ? 'Sending…' : localContactPreview ? 'Finish preview' : 'Finish & send'));
+      form.append(actions);
+      const fieldset = make('fieldset', 'preview-submit-fields');
+      fieldset.disabled = submission.busy;
+      fieldset.append(...form.children);
+      form.append(fieldset);
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (submission.busy) return;
+        if (localContactPreview) {
+          submission.previewComplete = true;
+          draw();
+          return;
+        }
+        const contact = Object.fromEntries(Array.from(new FormData(form), ([key, value]) => [key, value.trim()]));
+        const body = JSON.stringify({ pathway, answers, contact });
+        if (submission.body !== body) submission.id = crypto.randomUUID();
+        submission.body = body;
+        submission.busy = true;
+        submission.error = '';
+        draw();
+        try {
+          const response = await fetch(submitUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...JSON.parse(body), id: submission.id }),
+            signal: AbortSignal.timeout(30000)
+          });
+          const result = await response.json();
+          if (!response.ok || !result.reference) throw new Error(result.message || 'Delivery could not be confirmed.');
+          submission.reference = result.reference;
+        } catch (error) {
+          submission.error = `${error.message} Your answers are still here. Please try again.`;
+        } finally {
+          submission.busy = false;
+          draw();
+        }
       });
       panel.append(form);
     }

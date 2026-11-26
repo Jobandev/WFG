@@ -6,5 +6,8 @@ window.WFG_CONFIG = {
   assessmentAppUrl: null,
   assessmentPathways: { sponsor: false, 'cyber-resilience': false, 'business-systems': false },
   assessmentPreviewOnly: true,
+  questionnaireSubmitUrl: globalThis.location?.hostname === 'wfg-questionnaire.vercel.app'
+    ? '/api/questionnaire'
+    : null,
   assessmentDevelopmentPreview: false
 };

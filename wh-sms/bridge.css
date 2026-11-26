@@ -30,3 +30,10 @@ textarea.preview-text {min-height:135px}
 .preview-actions {display:flex;justify-content:space-between;gap:12px;margin-top:24px;flex-wrap:wrap}
 .preview-actions button:disabled {opacity:.4;cursor:not-allowed}
 .preview-error {color:#ffb7a9;min-height:1em}
+.preview-submit-fields { display: grid; gap: 1rem; min-width: 0; border: 0; padding: 0; margin: 0; }
+.preview-submit-fields .preview-text { display: block; width: 100%; margin-top: .35rem; }
+.preview-confirmation { text-align: center; padding-block: clamp(32px, 6vw, 64px); }
+.preview-confirmation-icon { display: inline-grid; place-items: center; width: 56px; height: 56px; border: 1px solid #d5b776; border-radius: 50%; background: #2d2517; color: #ebbd73; font-size: 28px; }
+.preview-confirmation h2 { margin: 18px 0 12px; }
+.preview-confirmation p { max-width: 50ch; margin: 0 auto; }
+.preview-confirmation .button { margin-top: 26px; }
